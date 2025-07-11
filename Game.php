@@ -39,7 +39,7 @@ class Game
                 }
             }
 
-            $matchesByGroup[$groupIndex] = $matches;
+            $matchesByGroup[$groupIndex + 1] = $matches;
         }
 
         return $matchesByGroup;
