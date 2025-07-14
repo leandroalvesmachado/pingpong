@@ -3,22 +3,60 @@
 class Game
 {
     /**
-     * Divide os jogadores em grupos de tamanho fixo.
+     * Divide os jogadores em grupos de 3 prioritariamente,
+     * ajustando para grupos de 4 se necessário.
      *
      * @param array $players Lista de jogadores
-     * @param int $groupSize Tamanho de cada grupo
      * @return array Grupos de jogadores
      */
-    public function groups(array $players, int $groupSize): array
+    public function groups(array $players): array
     {
-        return array_chunk($players, $groupSize);
+        $total = count($players);
+        $groups = [];
+
+        if ($total < 3) {
+            return [$players]; // Apenas um grupo se houver menos de 3
+        }
+
+        if ($total == 5) {
+            return [$players]; // Apenas um grupo se houver 5
+        }
+
+        $playersCopy = $players;
+        $i = 0;
+
+        // Tenta fazer o máximo de grupos de 3
+        while (count($playersCopy) >= 3) {
+            if (count($playersCopy) === 4) {
+                // Se restarem exatamente 4, faz um grupo de 4
+                $groups[] = array_splice($playersCopy, 0, 4);
+            } else {
+                $groups[] = array_splice($playersCopy, 0, 3);
+            }
+        }
+
+        // Se sobrou 1 ou 2 jogadores, redistribui
+        if (count($playersCopy) > 0) {
+            foreach ($playersCopy as $player) {
+                // Adiciona o jogador ao primeiro grupo com menos de 4
+                foreach ($groups as &$group) {
+                    if (count($group) < 4) {
+                        $group[] = $player;
+                        break;
+                    }
+                }
+            }
+        }
+
+        return $groups;
     }
 
+
     /**
-     * Gera partidas de todos contra todos para cada grupo, com id sequencial.
+     * Gera as partidas entre todos os jogadores de cada grupo.
      *
-     * @param array $groups Array de grupos, cada grupo é um array de jogadores.
-     * @return array Partidas organizadas por grupo com id.
+     * @param array $groups Lista de grupos (cada grupo é um array de jogadores)
+     * @return array Lista de partidas organizadas por grupo
      */
     public function matches(array $groups): array
     {
@@ -29,10 +67,13 @@ class Game
             $matches = [];
 
             $numPlayers = count($players);
+
+            // Todos contra todos
             for ($i = 0; $i < $numPlayers; $i++) {
                 for ($j = $i + 1; $j < $numPlayers; $j++) {
                     $matches[] = [
                         'jogo' => $gameNumber++,
+                        'grupo' => $groupIndex + 1,
                         'jogador1' => $players[$i],
                         'jogador2' => $players[$j],
                     ];
@@ -44,4 +85,43 @@ class Game
 
         return $matchesByGroup;
     }
+
+    public function match($game, $player1, $player2): string
+    {
+        return "
+            <table style='width:100%; border: 1px solid #808080; margin-bottom: 10px; border-radius: 2px;'>
+                <thead>
+                    <tr>
+                        <th width='30%' style='padding: 5px; text-align: left; font-size: 13px;'>{$game}</th>
+                        <th style='text-align: center; border: 1px solid; font-size: 12px;'>1º SET</th>
+                        <th style='text-align: center; border: 1px solid; font-size: 12px;'>2º SET</th>
+                        <th style='text-align: center; border: 1px solid; font-size: 12px;'>3º SET</th>
+                        <th style='text-align: center; border: 1px solid; font-size: 12px;'>4º SET</th>
+                        <th style='text-align: center; border: 1px solid; font-size: 12px;'>5º SET</th>
+                        <th width='20%' style='text-align: center; border: none;'>FINAL</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style='padding: 20px; text-align: left;'>{$player1}</td>
+                        <td style='text-align: center; border-left: 1px solid;'>_____</td>
+                        <td style='text-align: center; border-left: 1px solid;'>_____</td>
+                        <td style='text-align: center; border-left: 1px solid;'>_____</td>
+                        <td style='text-align: center; border-left: 1px solid;'>_____</td>
+                        <td style='text-align: center; border-left: 1px solid; border-right: 1px solid;'>_____</td>
+                    </tr>
+                    <tr>
+                        <td style='padding: 20px; text-align: left;'>{$player2}</td>
+                        <td style='text-align: center; border-left: 1px solid;'>_____</td>
+                        <td style='text-align: center; border-left: 1px solid;'>_____</td>
+                        <td style='text-align: center; border-left: 1px solid;'>_____</td>
+                        <td style='text-align: center; border-left: 1px solid;'>_____</td>
+                        <td style='text-align: center; border-left: 1px solid; border-right: 1px solid;'>_____</td>
+                    </tr>
+                </tbody>
+            </table>
+        ";
+    }
+
+    
 }
