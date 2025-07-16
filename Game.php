@@ -86,13 +86,13 @@ class Game
         return $matchesByGroup;
     }
 
-    public function match($game, $player1, $player2): string
+    public function match($game, $player1, $player2, $padding = "5px"): string
     {
         return "
             <table style='width:100%; border: 1px solid #808080; margin-bottom: 10px; border-radius: 2px;'>
                 <thead>
                     <tr>
-                        <th width='30%' style='padding: 5px; text-align: left; font-size: 13px;'>{$game}</th>
+                        <th width='25%' style='padding: 5px; text-align: left; font-size: 13px;'>{$game}</th>
                         <th style='text-align: center; border: 1px solid; font-size: 12px;'>1º SET</th>
                         <th style='text-align: center; border: 1px solid; font-size: 12px;'>2º SET</th>
                         <th style='text-align: center; border: 1px solid; font-size: 12px;'>3º SET</th>
@@ -103,20 +103,20 @@ class Game
                 </thead>
                 <tbody>
                     <tr>
-                        <td style='padding: 20px; text-align: left;'>{$player1}</td>
-                        <td style='text-align: center; border-left: 1px solid;'>_____</td>
-                        <td style='text-align: center; border-left: 1px solid;'>_____</td>
-                        <td style='text-align: center; border-left: 1px solid;'>_____</td>
-                        <td style='text-align: center; border-left: 1px solid;'>_____</td>
-                        <td style='text-align: center; border-left: 1px solid; border-right: 1px solid;'>_____</td>
+                        <td style='padding: {$padding}; text-align: left;'>{$player1}</td>
+                        <td style='border-bottom: 1px solid black; text-align: center; border-left: 1px solid;'></td>
+                        <td style='border-bottom: 1px solid black; text-align: center; border-left: 1px solid;'></td>
+                        <td style='border-bottom: 1px solid black; text-align: center; border-left: 1px solid;'></td>
+                        <td style='border-bottom: 1px solid black; text-align: center; border-left: 1px solid;'></td>
+                        <td style='border-bottom: 1px solid black; text-align: center; border-left: 1px solid; border-right: 1px solid;'></td>
                     </tr>
                     <tr>
-                        <td style='padding: 20px; text-align: left;'>{$player2}</td>
-                        <td style='text-align: center; border-left: 1px solid;'>_____</td>
-                        <td style='text-align: center; border-left: 1px solid;'>_____</td>
-                        <td style='text-align: center; border-left: 1px solid;'>_____</td>
-                        <td style='text-align: center; border-left: 1px solid;'>_____</td>
-                        <td style='text-align: center; border-left: 1px solid; border-right: 1px solid;'>_____</td>
+                        <td style='padding: {$padding}; text-align: left;'>{$player2}</td>
+                        <td style='text-align: center; border-left: 1px solid;'></td>
+                        <td style='text-align: center; border-left: 1px solid;'></td>
+                        <td style='text-align: center; border-left: 1px solid;'></td>
+                        <td style='text-align: center; border-left: 1px solid;'></td>
+                        <td style='text-align: center; border-left: 1px solid; border-right: 1px solid;'></td>
                     </tr>
                 </tbody>
             </table>
