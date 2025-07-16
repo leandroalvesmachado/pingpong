@@ -47,12 +47,14 @@ try {
                 </table>
     ";
 
+    $game = new Game();
     $csv = new Csv(__DIR__ . "/{$file}", ';');
     $players = $csv->read();
     $total = count($players);
+    $prize = $game->prize($total);
 
-    $html .= "<div>TOTAL DE ATLETAS: {$total}<div>";
-
+    $html .= "<div>TOTAL DE ATLETAS: {$total}</div>";
+    
     $html .= "<ul>";
     foreach ($players as $player) {
         $player = trim($player);
@@ -60,11 +62,16 @@ try {
     }
     $html .= "</ul>";
 
+    $html .= "<div>TOTAL ARRECADADO: R$ ".$prize['total_arrecadado']."</div><br>";
+    $html .= "<div>1º lugar: R$ ".$prize['1º lugar']."</div>";
+    $html .= "<div>2º lugar: R$ ".$prize['2º lugar']."</div>";
+    $html .= "<div>3º lugar (cada): R$ ".$prize['3º lugar (cada)']."</div><br>";
+
+
     // Ordem aleatória
     shuffle($players);
 
     // Criando grupos
-    $game = new Game();
     $groups = $game->groups($players);
 
     foreach ($groups as $group => $athletes) {
@@ -113,6 +120,7 @@ try {
 
     if ($total == 4 || $total == 5) {
         // grupo unico
+    } elseif ($total == 6) {
     } elseif ($total == 7) {
         $html .= "
             <div style='page-break-inside: avoid; margin-bottom: 25px;'>

@@ -123,5 +123,24 @@ class Game
         ";
     }
 
+    public function prize(int $totalCompetidores): array
+    {
+        $valorInscricao = 25;
+        $totalArrecadado = $valorInscricao * $totalCompetidores;
+
+        $primeiroLugar  = round($totalArrecadado * 0.40, 2);
+        $segundoLugar   = round($totalArrecadado * 0.30, 2);
+        $terceiroLugar  = round($totalArrecadado * 0.15, 2);
+        
+        return [
+            'total_arrecadado' => $totalArrecadado,
+            '1º lugar' => $primeiroLugar,
+            '2º lugar' => $segundoLugar,
+            '3º lugar (cada)' => $terceiroLugar,
+            'total_premiado' => $primeiroLugar + $segundoLugar + ($terceiroLugar * 2),
+            'restante' => $totalArrecadado - ($primeiroLugar + $segundoLugar + ($terceiroLugar * 2)),
+        ];
+    }
+
     
 }
