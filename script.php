@@ -1,5 +1,7 @@
 <?php
 
+date_default_timezone_set('America/Fortaleza');
+
 error_reporting(E_ALL);
 ini_set('display_errors', '1');
 
@@ -40,7 +42,7 @@ try {
                 <meta charset='UTF-8'>
             </head>
             <body>
-                <table style='width:100%;'>
+                <table style='width:100%; font-size: 14px; text-transform: uppercase;'>
                     <tr>
                         <th>{$title}</th>
                     </tr>
@@ -53,19 +55,20 @@ try {
     $total = count($players);
     $prize = $game->prize($total);
 
-    $html .= "<div>TOTAL DE ATLETAS: {$total}</div>";
+    $html .= "<div style='font-size: 13px;'>TOTAL DE ATLETAS: {$total}</div>";
     
-    $html .= "<ul>";
+    $html .= "<ul style='font-size: 13px;'>";
     foreach ($players as $player) {
         $player = trim($player);
         $html .= "<li>{$player}</li>";
     }
     $html .= "</ul>";
 
-    $html .= "<div>PREMIAÇÃO</div><br>";
-    $html .= "<div>1º lugar: 40% do total</div>";
-    $html .= "<div>2º lugar: 30% do total</div>";
-    $html .= "<div>3º lugar (cada): 15% para cada um</div><br>";
+    $html .= "<div style='font-size: 13px;'>PREMIAÇÃO</div><br>";
+    $html .= "<div style='font-size: 13px;'>1º lugar: 40% do total</div>";
+    $html .= "<div style='font-size: 13px;'>2º lugar: 30% do total</div>";
+    $html .= "<div style='font-size: 13px;'>3º lugar (cada): 15% para cada um</div><br>";
+    $html .= "<div style='font-size: 13px;'>SORTEIO REALIZADO EM ".date('d/m/Y H:i:s')."</div><br>";
 
 
     // Ordem aleatória
@@ -74,31 +77,7 @@ try {
     // Criando grupos
     $groups = $game->groups($players);
 
-    foreach ($groups as $group => $athletes) {
-        $html .= "
-            <div style='page-break-inside: avoid; margin-bottom: 15px;'>
-                <table style='width:100%; border: 1px solid #808080; margin-bottom: 10px; border-radius: 2px;'>
-                    <thead>
-                        <tr>
-                            <th style='border-bottom: 1px solid black; font-size: 12.5px;'>GRUPO ".($group + 1)."</th>
-                        </tr>
-                    </thead>
-        ";
-        foreach ($athletes as $athlete) {
-            $html .= "
-                    <tbody>
-                        <tr>
-                            <td style='font-size: 12.5px;'>{$athlete}</td>
-                        </tr>
-                    </tbody>
-            ";
-        }
-
-        $html.= "
-                </table>
-            </div>
-        ";
-    }
+    $html .= $game->group($groups);
 
     // Gerando partidas
     $matches = $game->matches($groups);
@@ -112,11 +91,6 @@ try {
             ";
         }
     }
-
-    $html .= '
-            </body>
-        </html>
-    ';
 
     if ($total == 4 || $total == 5) {
         // grupo unico
@@ -188,6 +162,11 @@ try {
             </div>
         ";
     }
+
+    $html .= '
+            </body>
+        </html>
+    ';
 
     $dompdf = new Dompdf();
     $dompdf->loadHtml($html);

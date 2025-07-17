@@ -86,40 +86,143 @@ class Game
         return $matchesByGroup;
     }
 
+    public function group($groups): string
+    {
+        $html = "";
+
+        foreach ($groups as $group => $athletes) {
+            $html .= "
+                <div style='page-break-inside: avoid; margin-bottom: 30px;'>
+                    <table style='width: 100%; border-collapse: collapse; border: 1px solid #ccc; margin-bottom: 10px; text-transform: uppercase;'>
+                        <thead>
+                            <tr>
+                                <th colspan='".(count($athletes) + 1)."' style='text-align: center; font-size: 12.5px; background: #f0f0f0; border: 1px solid #ccc; padding: 8px;'>
+                                    GRUPO ".($group + 1)."
+                                </th>
+                            </tr>
+                            <tr>
+                                <th style='border: 1px solid #ccc; padding: 6px; font-size: 12px;'>ATLETA</th>";
+
+            foreach ($athletes as $opponent) {
+                $html .= "
+                    <th style='border: 1px solid #ccc; padding: 6px; font-size: 11px; text-align: center;'>
+                        ".htmlspecialchars($opponent)."
+                    </th>";
+            }
+
+            $html .= "
+                            </tr>
+                        </thead>
+                        <tbody>
+            ";
+
+            foreach ($athletes as $i => $athlete) {
+                $html .= "
+                    <tr>
+                        <td style='border: 1px solid #ccc; font-size: 12.5px; padding: 5px;'>".htmlspecialchars($athlete)."</td>";
+
+                foreach ($athletes as $j => $opponent) {
+                    if ($i === $j) {
+                        $html .= "
+                            <td style='background: #f9f9f9; border: 1px solid #ccc; text-align: center;'>–</td>";
+                    } else {
+                        $html .= "
+                            <td style='border: 1px solid #ccc; text-align: center;'>
+                                <input type='checkbox' title='Vitória de ".htmlspecialchars($athlete)." sobre ".htmlspecialchars($opponent)."'>
+                            </td>";
+                    }
+                }
+
+                $html .= "</tr>";
+            }
+
+            $html .= "
+                        </tbody>
+                    </table>
+                </div>";
+        }
+
+        return $html;
+    }
+
+
+
+    // public function group($groups): string
+    // {
+    //     $html = "";
+        
+    //     foreach ($groups as $group => $athletes) {
+    //         $html .= "
+    //             <div style='page-break-inside: avoid; margin-bottom: 15px;'>
+    //                 <table style='width:100%; border: 1px solid #808080; margin-bottom: 10px; border-radius: 2px;'>
+    //                     <thead>
+    //                         <tr>
+    //                             <th style='border-bottom: 1px solid black; font-size: 12.5px;' colspan='3'>GRUPO ".($group + 1)."</th>
+    //                         </tr>
+    //                         <tr>
+    //                             <th width='25%' style='padding: 5px; text-align: left; font-size: 12px;'></th>
+    //                             <th style='text-align: center; border: 0px solid; font-size: 12px;'>VITÓRIAS</th>
+    //                             <th style='text-align: center; border: 0px solid; font-size: 12px;'>DERROTAS</th>
+    //                         </tr>
+    //                     </thead>
+    //         ";
+    //         foreach ($athletes as $athlete) {
+    //             $html .= "
+    //                     <tbody>
+    //                         <tr>
+    //                             <td style='font-size: 12.5px;'>{$athlete}</td>
+    //                             <td style='text-align: center; border: 0px solid; font-size: 12px;'></td>
+    //                             <td style='text-align: center; border: 0px solid; font-size: 12px;'></td>
+    //                         </tr>
+    //                     </tbody>
+    //             ";
+    //         }
+
+    //         $html.= "
+    //                 </table>
+    //             </div>
+    //         ";
+    //     }
+
+    //     return $html;
+    // }
+
     public function match($game, $player1, $player2, $padding = "5px"): string
     {
         return "
-            <table style='width:100%; border: 1px solid #808080; margin-bottom: 10px; border-radius: 2px;'>
+            <table style='width:100%; border-collapse: collapse; border: 1px solid #ccc; margin-bottom: 10px; border-radius: 2px; text-transform: uppercase;'>
                 <thead>
-                    <tr>
-                        <th colspan='7' style='border-bottom: 1px solid; font-size: 12px;'>{$game}</th>
+                    <tr style='border: 1px solid #ccc;'>
+                        <th colspan='7' style='font-size: 12.5px; background: #f0f0f0;'>{$game}</th>
                     </tr>
-                    <tr>
-                        <th width='25%' style='padding: 5px; text-align: left; font-size: 12px;'></th>
-                        <th style='text-align: center; border: 1px solid; font-size: 12px;'>1º SET</th>
-                        <th style='text-align: center; border: 1px solid; font-size: 12px;'>2º SET</th>
-                        <th style='text-align: center; border: 1px solid; font-size: 12px;'>3º SET</th>
-                        <th style='text-align: center; border: 1px solid; font-size: 12px;'>4º SET</th>
-                        <th style='text-align: center; border: 1px solid; font-size: 12px;'>5º SET</th>
-                        <th width='20%' style='text-align: center; border: none;'>FINAL</th>
+                    <tr style='text-align: center; font-size: 12.5px;'>
+                        <th width='25%' style='padding: 5px; border: 1px solid #ccc;'>ATLETAS</th>
+                        <th style='border: 1px solid #ccc;'>1º SET</th>
+                        <th style='border: 1px solid #ccc;'>2º SET</th>
+                        <th style='border: 1px solid #ccc;'>3º SET</th>
+                        <th style='border: 1px solid #ccc;'>4º SET</th>
+                        <th style='border: 1px solid #ccc;'>5º SET</th>
+                        <th width='20%' style='border: 1px solid #ccc;'>FINAL</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td style='padding: {$padding}; text-align: left; font-size: 12px;'>{$player1}</td>
-                        <td style='border-bottom: 1px solid black; text-align: center; border-left: 1px solid;'></td>
-                        <td style='border-bottom: 1px solid black; text-align: center; border-left: 1px solid;'></td>
-                        <td style='border-bottom: 1px solid black; text-align: center; border-left: 1px solid;'></td>
-                        <td style='border-bottom: 1px solid black; text-align: center; border-left: 1px solid;'></td>
-                        <td style='border-bottom: 1px solid black; text-align: center; border-left: 1px solid; border-right: 1px solid;'></td>
+                        <td style='padding: {$padding}; text-align: left; font-size: 12.5px; border: 1px solid #ccc;'>{$player1}</td>
+                        <td style='border: 1px solid #ccc;'></td>
+                        <td style='border: 1px solid #ccc;'></td>
+                        <td style='border: 1px solid #ccc;'></td>
+                        <td style='border: 1px solid #ccc;'></td>
+                        <td style='border: 1px solid #ccc;'></td>
+                        <td style='border: 1px solid #ccc;'></td>
                     </tr>
                     <tr>
-                        <td style='padding: {$padding}; text-align: left; font-size: 12px;'>{$player2}</td>
-                        <td style='text-align: center; border-left: 1px solid;'></td>
-                        <td style='text-align: center; border-left: 1px solid;'></td>
-                        <td style='text-align: center; border-left: 1px solid;'></td>
-                        <td style='text-align: center; border-left: 1px solid;'></td>
-                        <td style='text-align: center; border-left: 1px solid; border-right: 1px solid;'></td>
+                        <td style='padding: {$padding}; text-align: left; font-size: 12.5px; border: 1px solid #ccc;'>{$player2}</td>
+                        <td style='border: 1px solid #ccc;'></td>
+                        <td style='border: 1px solid #ccc;'></td>
+                        <td style='border: 1px solid #ccc;'></td>
+                        <td style='border: 1px solid #ccc;'></td>
+                        <td style='border: 1px solid #ccc'></td>
+                        <td style='border: 1px solid #ccc'></td>
                     </tr>
                 </tbody>
             </table>
