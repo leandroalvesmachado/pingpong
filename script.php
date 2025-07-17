@@ -80,7 +80,7 @@ try {
                 <table style='width:100%; border: 1px solid #808080; margin-bottom: 10px; border-radius: 2px;'>
                     <thead>
                         <tr>
-                            <th style='border-bottom: 1px solid black;'>GRUPO ".($group + 1)."</th>
+                            <th style='border-bottom: 1px solid black; font-size: 12.5px;'>GRUPO ".($group + 1)."</th>
                         </tr>
                     </thead>
         ";
@@ -88,7 +88,7 @@ try {
             $html .= "
                     <tbody>
                         <tr>
-                            <td>{$athlete}</td>
+                            <td style='font-size: 12.5px;'>{$athlete}</td>
                         </tr>
                     </tbody>
             ";
@@ -107,7 +107,7 @@ try {
         foreach ($games as $match) {
             $html .= "
                 <div style='page-break-inside: avoid; margin-bottom: 25px;'>
-                    ".$game->match("JOGO {$match['jogo']}", $match['jogador1'], $match['jogador2'])."
+                    ".$game->match("GRUPO {$group} - JOGO {$match['jogo']}", $match['jogador1'], $match['jogador2'])."
                 </div>
             ";
         }
