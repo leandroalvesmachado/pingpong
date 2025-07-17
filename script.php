@@ -62,10 +62,10 @@ try {
     }
     $html .= "</ul>";
 
-    $html .= "<div>TOTAL ARRECADADO: R$ ".$prize['total_arrecadado']."</div><br>";
-    $html .= "<div>1º lugar: R$ ".$prize['1º lugar']."</div>";
-    $html .= "<div>2º lugar: R$ ".$prize['2º lugar']."</div>";
-    $html .= "<div>3º lugar (cada): R$ ".$prize['3º lugar (cada)']."</div><br>";
+    $html .= "<div>PREMIAÇÃO</div><br>";
+    $html .= "<div>1º lugar: 40% do total</div>";
+    $html .= "<div>2º lugar: 30% do total</div>";
+    $html .= "<div>3º lugar (cada): 15% para cada um</div><br>";
 
 
     // Ordem aleatória
