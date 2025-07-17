@@ -25,79 +25,174 @@ $prize4 = $game->prize(count($inscritos4));
 <head>
   <meta charset="UTF-8">
   <title>Sorteio de Divisões</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
 </head>
 <body>
-  <h1>Sorteio de Grupos - Tênis de Mesa</h1>
-
-  <strong>Inscritos na 1ª Divisão: <?php echo count($inscritos1); ?></strong>
-  <div>TOTAL ARRECADADO: R$ <?php echo $prize1['total_arrecadado']; ?></div>
-  <div>1º lugar: R$ <?php echo $prize1['1º lugar']; ?></div>
-  <div>2º lugar: R$ <?php echo $prize1['2º lugar']; ?></div>
-  <div>3º lugar (cada): R$ <?php echo $prize1['3º lugar (cada)']; ?></div>
-  <ul>
-    <?php foreach ($inscritos1 as $atleta): ?>
-      <li><?= htmlspecialchars($atleta) ?></li>
-    <?php endforeach; ?>
-  </ul>
-
-  <form action="script.php?arquivo=1_divisao.csv" method="post" target="_blank">
-    <button type="submit">Sortear 1ª Divisão</button>
-  </form>
-
-  <hr>
-  <br>
-
-  <strong>Inscritos na 2ª Divisão: <?php echo count($inscritos2); ?></strong>
-  <div>TOTAL ARRECADADO: R$ <?php echo $prize2['total_arrecadado']; ?></div>
-  <div>1º lugar: R$ <?php echo $prize2['1º lugar']; ?></div>
-  <div>2º lugar: R$ <?php echo $prize2['2º lugar']; ?></div>
-  <div>3º lugar (cada): R$ <?php echo $prize2['3º lugar (cada)']; ?></div>
-  <ul>
-    <?php foreach ($inscritos2 as $atleta): ?>
-      <li><?= htmlspecialchars($atleta) ?></li>
-    <?php endforeach; ?>
-  </ul>
-
-  <form action="script.php?arquivo=2_divisao.csv" method="post" target="_blank">
-    <button type="submit">Sortear 2ª Divisão</button>
-  </form>
-
-  <hr>
-  <br>
-
-  <strong>Inscritos na 3ª Divisão: <?php echo count($inscritos3); ?></strong>
-  <div>TOTAL ARRECADADO: R$ <?php echo $prize3['total_arrecadado']; ?></div>
-  <div>1º lugar: R$ <?php echo $prize3['1º lugar']; ?></div>
-  <div>2º lugar: R$ <?php echo $prize3['2º lugar']; ?></div>
-  <div>3º lugar (cada): R$ <?php echo $prize3['3º lugar (cada)']; ?></div>
-  <ul>
-    <?php foreach ($inscritos3 as $atleta): ?>
-      <li><?= htmlspecialchars($atleta) ?></li>
-    <?php endforeach; ?>
-  </ul>
-
-  <form action="script.php?arquivo=3_divisao.csv" method="post" target="_blank">
-    <button type="submit">Sortear 3ª Divisão</button>
-  </form>
+  <div class="container">
+    <div class="row text-center">
+      <div class="col">
+        <h1>AABB Fortaleza 2025 - 3º Torneio Interno de Tênis de Mesa</h1>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <div class="table-responsive">
+          <table class="table table-striped table-hover table-bordered">
+            <thead>
+              <tr class="text-center">
+                <th colspan="5">Inscritos na 1ª Divisão (Categorias A, B e C): <?php echo count($inscritos1); ?></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="text-center">
+                <td>TOTAL ARRECADADO: R$ <?php echo $prize1['total_arrecadado']; ?></td>
+                <td>1º lugar: R$ <?php echo $prize1['1º lugar']; ?></td>
+                <td>2º lugar: R$ <?php echo $prize1['2º lugar']; ?></td>
+                <td>3º lugar (cada): R$ <?php echo $prize1['3º lugar (cada)']; ?></td>
+              </tr>
+              <?php foreach ($inscritos1 as $atleta): ?>
+              <tr class="text-center">
+                <td colspan="5"><?= htmlspecialchars($atleta) ?></td>
+              </tr>
+              <?php endforeach; ?>
+              <tr>
+                <td colspan="5">
+                  <form action="script.php?arquivo=1_divisao.csv" method="post" target="_blank">
+                    <div class="d-grid gap-2 col-6 mx-auto">
+                      <button type="submit" class="btn btn-primary">Sorteio 1ª Divisão</button>
+                    </div>
+                  </form>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <hr>
-  <br>
 
-  <strong>Inscritos na Divisão Feminina: <?php echo count($inscritos4); ?></strong>
-  <div>TOTAL ARRECADADO: R$ <?php echo $prize4['total_arrecadado']; ?></div>
-  <div>1º lugar: R$ <?php echo $prize4['1º lugar']; ?></div>
-  <div>2º lugar: R$ <?php echo $prize4['2º lugar']; ?></div>
-  <div>3º lugar (cada): R$ <?php echo $prize4['3º lugar (cada)']; ?></div>
-  <ul>
-    <?php foreach ($inscritos4 as $atleta): ?>
-      <li><?= htmlspecialchars($atleta) ?></li>
-    <?php endforeach; ?>
-  </ul>
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <div class="table-responsive">
+          <table class="table table-striped table-hover table-bordered">
+            <thead>
+              <tr class="text-center">
+                <th colspan="5">Inscritos na 2ª Divisão (Categorias D e E): <?php echo count($inscritos2); ?></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="text-center">
+                <td>TOTAL ARRECADADO: R$ <?php echo $prize2['total_arrecadado']; ?></td>
+                <td>1º lugar: R$ <?php echo $prize2['1º lugar']; ?></td>
+                <td>2º lugar: R$ <?php echo $prize2['2º lugar']; ?></td>
+                <td>3º lugar (cada): R$ <?php echo $prize2['3º lugar (cada)']; ?></td>
+              </tr>
+              <?php foreach ($inscritos2 as $atleta): ?>
+              <tr class="text-center">
+                <td colspan="5"><?= htmlspecialchars($atleta) ?></td>
+              </tr>
+              <?php endforeach; ?>
+              <tr>
+                <td colspan="5">
+                  <form action="script.php?arquivo=2_divisao.csv" method="post" target="_blank">
+                    <div class="d-grid gap-2 col-6 mx-auto">
+                      <button type="submit" class="btn btn-primary">Sorteio 2ª Divisão</button>
+                    </div>
+                  </form>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
 
-  <form action="script.php?arquivo=feminina.csv" method="post" target="_blank">
-    <button type="submit">Sortear Divisão Feminina</button>
-  </form>
+  <hr>
 
-  <br>
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <div class="table-responsive">
+          <table class="table table-striped table-hover table-bordered">
+            <thead>
+              <tr class="text-center">
+                <th colspan="5">Inscritos na 3ª Divisão (Categoria F e Iniciantes): <?php echo count($inscritos3); ?></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="text-center">
+                <td>TOTAL ARRECADADO: R$ <?php echo $prize3['total_arrecadado']; ?></td>
+                <td>1º lugar: R$ <?php echo $prize3['1º lugar']; ?></td>
+                <td>2º lugar: R$ <?php echo $prize3['2º lugar']; ?></td>
+                <td>3º lugar (cada): R$ <?php echo $prize3['3º lugar (cada)']; ?></td>
+              </tr>
+              <?php foreach ($inscritos3 as $atleta): ?>
+              <tr class="text-center">
+                <td colspan="5"><?= htmlspecialchars($atleta) ?></td>
+              </tr>
+              <?php endforeach; ?>
+              <tr>
+                <td colspan="5">
+                  <form action="script.php?arquivo=3_divisao.csv" method="post" target="_blank">
+                    <div class="d-grid gap-2 col-6 mx-auto">
+                      <button type="submit" class="btn btn-primary">Sorteio 3ª Divisão</button>
+                    </div>
+                  </form>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <div class="table-responsive">
+          <table class="table table-striped table-hover table-bordered">
+            <thead>
+              <tr class="text-center">
+                <th colspan="5">Inscritos na Divisão Feminina: <?php echo count($inscritos4); ?></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="text-center">
+                <td>TOTAL ARRECADADO: R$ <?php echo $prize4['total_arrecadado']; ?></td>
+                <td>1º lugar: R$ <?php echo $prize4['1º lugar']; ?></td>
+                <td>2º lugar: R$ <?php echo $prize4['2º lugar']; ?></td>
+                <td>3º lugar (cada): R$ <?php echo $prize4['3º lugar (cada)']; ?></td>
+              </tr>
+              <?php foreach ($inscritos4 as $atleta): ?>
+              <tr class="text-center">
+                <td colspan="5"><?= htmlspecialchars($atleta) ?></td>
+              </tr>
+              <?php endforeach; ?>
+              <tr>
+                <td colspan="5">
+                  <form action="script.php?arquivo=feminina.csv" method="post" target="_blank">
+                    <div class="d-grid gap-2 col-6 mx-auto">
+                      <button type="submit" class="btn btn-primary">Sorteio Divisão Feminina</button>
+                    </div>
+                  </form>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous"></script>
 </body>
 </html>
