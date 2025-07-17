@@ -137,13 +137,23 @@ try {
                 ".$game->match("FINAL - VENCEDOR S1 x VENCEDOR S2", "", "", "15px")."
             </div>
         ";
+    } elseif ($total == 10) {
+        $html .= "
+            <div style='page-break-inside: avoid; margin-bottom: 25px;'>
+                ".$game->match("QUARTA 1 - 2º GRUPO 2 x 2º GRUPO 3", "", "", "15px")."
+                ".$game->match("QUARTA 2 - 2º GRUPO 1 x 1º GRUPO 3", "", "", "15px")."
+                ".$game->match("SEMIFINAL 1 - 1º GRUPO 1 x VENCEDOR Q1", "", "", "15px")."
+                ".$game->match("SEMIFINAL 2 - 1º GRUPO 2 x VENCEDOR Q2", "", "", "15px")."
+                ".$game->match("FINAL - VENCEDOR S1 x VENCEDOR S2", "", "", "15px")."
+            </div>
+        ";
     } elseif ($total == 12) {
          $html .= "
             <div style='page-break-inside: avoid; margin-bottom: 25px;'>
                 ".$game->match("QUARTA 1 - 1º GRUPO 1 x 2º GRUPO 4", "", "", "15px")."
                 ".$game->match("QUARTA 2 - 1º GRUPO 2 x 2º GRUPO 3", "", "", "15px")."
-                ".$game->match("QUARTA 3 - 1º GRUPO 3 x 2º GRUPO 1", "", "", "15px")."
-                ".$game->match("QUARTA 4 - 1º GRUPO 4 x 2º GRUPO 2", "", "", "15px")."
+                ".$game->match("QUARTA 3 - 1º GRUPO 3 x 2º GRUPO 2", "", "", "15px")."
+                ".$game->match("QUARTA 4 - 1º GRUPO 4 x 2º GRUPO 1", "", "", "15px")."
                 ".$game->match("SEMIFINAL 1 - VENCEDOR Q1 x VENCEDOR Q2", "", "", "15px")."
                 ".$game->match("SEMIFINAL 2 - VENCEDOR Q3 x VENCEDOR Q4", "", "", "15px")."
                 ".$game->match("FINAL - VENCEDOR S1 x VENCEDOR S2", "", "", "15px")."
