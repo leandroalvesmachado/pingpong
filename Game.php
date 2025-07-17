@@ -92,7 +92,7 @@ class Game
 
         foreach ($groups as $group => $athletes) {
             $html .= "
-                <div style='page-break-inside: avoid; margin-bottom: 30px;'>
+                <div style='page-break-inside: avoid; margin-bottom: 15px;'>
                     <table style='width: 100%; border-collapse: collapse; border: 1px solid #ccc; margin-bottom: 10px; text-transform: uppercase;'>
                         <thead>
                             <tr>

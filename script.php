@@ -44,7 +44,7 @@ try {
             <body>
                 <table style='width:100%; font-size: 14px; text-transform: uppercase;'>
                     <tr>
-                        <th>{$title}</th>
+                        <th>{$title} - SORTEIO REALIZADO EM ".date('d/m/Y H:i:s')."</th>
                     </tr>
                 </table>
     ";
@@ -55,20 +55,13 @@ try {
     $total = count($players);
     $prize = $game->prize($total);
 
-    $html .= "<div style='font-size: 13px;'>TOTAL DE ATLETAS: {$total}</div>";
+    $html .= "<br><div style='font-size: 13px;'>TOTAL DE ATLETAS: {$total}</div>";
     
-    $html .= "<ul style='font-size: 13px;'>";
-    foreach ($players as $player) {
-        $player = trim($player);
-        $html .= "<li>{$player}</li>";
-    }
-    $html .= "</ul>";
-
-    $html .= "<div style='font-size: 13px;'>PREMIAÇÃO</div><br>";
-    $html .= "<div style='font-size: 13px;'>1º lugar: 40% do total</div>";
-    $html .= "<div style='font-size: 13px;'>2º lugar: 30% do total</div>";
-    $html .= "<div style='font-size: 13px;'>3º lugar (cada): 15% para cada um</div><br>";
-    $html .= "<div style='font-size: 13px;'>SORTEIO REALIZADO EM ".date('d/m/Y H:i:s')."</div><br>";
+    $html .= "<div style='font-size: 14px;'>";
+    $html .= implode(', ', array_map('trim', $players));
+    $html .= "</div>";
+    $html .= "<br><div style='font-size: 14px;'>PREMIAÇÃO</div>";
+    $html .= "<div style='font-size: 14px;'>1º lugar: 40% do total / 2º lugar: 30% do total / 3º lugar (cada): 15% para cada um</div><br>";
 
 
     // Ordem aleatória
