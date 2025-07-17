@@ -24,33 +24,38 @@ $prize4 = $game->prize(count($inscritos4));
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <title>Sorteio de Divisões</title>
+  <title>AABB Fortaleza | Torneio Interno</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
 </head>
 <body>
   <div class="container">
     <div class="row text-center">
       <div class="col">
-        <h1>AABB Fortaleza 2025 - 3º Torneio Interno de Tênis de Mesa</h1>
+        <h1>AABB Fortaleza 2025</h1>
+      </div>
+    </div>
+    <div class="row text-center">
+      <div class="col">
+        <h1>3º Torneio Interno de Tênis de Mesa</h1>
       </div>
     </div>
   </div>
-  <div class="container">
+  <div class="container mb-5">
     <div class="row">
       <div class="col">
         <div class="table-responsive">
           <table class="table table-striped table-hover table-bordered">
             <thead>
               <tr class="text-center">
-                <th colspan="5">Inscritos na 1ª Divisão (Categorias A, B e C): <?php echo count($inscritos1); ?></th>
+                <th colspan="5" class="table-success">Inscritos na 1ª Divisão (Categorias A, B e C): <?php echo count($inscritos1); ?></th>
               </tr>
             </thead>
             <tbody>
               <tr class="text-center">
-                <td>TOTAL ARRECADADO: R$ <?php echo $prize1['total_arrecadado']; ?></td>
-                <td>1º lugar: R$ <?php echo $prize1['1º lugar']; ?></td>
-                <td>2º lugar: R$ <?php echo $prize1['2º lugar']; ?></td>
-                <td>3º lugar (cada): R$ <?php echo $prize1['3º lugar (cada)']; ?></td>
+                <td class="table-primary"><strong>Total: R$ <?php echo $prize1['total_arrecadado']; ?></strong></td>
+                <td class="table-primary"><strong>1º lugar: R$ <?php echo $prize1['1º lugar']; ?></strong></td>
+                <td class="table-primary"><strong>2º lugar: R$ <?php echo $prize1['2º lugar']; ?></strong></td>
+                <td class="table-primary"><strong>3º lugar (cada): R$ <?php echo $prize1['3º lugar (cada)']; ?></strong></td>
               </tr>
               <?php foreach ($inscritos1 as $atleta): ?>
               <tr class="text-center">
@@ -73,24 +78,22 @@ $prize4 = $game->prize(count($inscritos4));
     </div>
   </div>
 
-  <hr>
-
-  <div class="container">
+  <div class="container mb-5">
     <div class="row">
       <div class="col">
         <div class="table-responsive">
           <table class="table table-striped table-hover table-bordered">
             <thead>
               <tr class="text-center">
-                <th colspan="5">Inscritos na 2ª Divisão (Categorias D e E): <?php echo count($inscritos2); ?></th>
+                <th colspan="5" class="table-success">Inscritos na 2ª Divisão (Categorias D e E): <?php echo count($inscritos2); ?></th>
               </tr>
             </thead>
             <tbody>
               <tr class="text-center">
-                <td>TOTAL ARRECADADO: R$ <?php echo $prize2['total_arrecadado']; ?></td>
-                <td>1º lugar: R$ <?php echo $prize2['1º lugar']; ?></td>
-                <td>2º lugar: R$ <?php echo $prize2['2º lugar']; ?></td>
-                <td>3º lugar (cada): R$ <?php echo $prize2['3º lugar (cada)']; ?></td>
+                <td class="table-primary"><strong>Total: R$ <?php echo $prize2['total_arrecadado']; ?></strong></td>
+                <td class="table-primary"><strong>1º lugar: R$ <?php echo $prize2['1º lugar']; ?></strong></td>
+                <td class="table-primary"><strong>2º lugar: R$ <?php echo $prize2['2º lugar']; ?></strong></td>
+                <td class="table-primary"><strong>3º lugar (cada): R$ <?php echo $prize2['3º lugar (cada)']; ?></strong></td>
               </tr>
               <?php foreach ($inscritos2 as $atleta): ?>
               <tr class="text-center">
@@ -113,24 +116,22 @@ $prize4 = $game->prize(count($inscritos4));
     </div>
   </div>
 
-  <hr>
-
-  <div class="container">
+  <div class="container mb-5">
     <div class="row">
       <div class="col">
         <div class="table-responsive">
           <table class="table table-striped table-hover table-bordered">
             <thead>
               <tr class="text-center">
-                <th colspan="5">Inscritos na 3ª Divisão (Categoria F e Iniciantes): <?php echo count($inscritos3); ?></th>
+                <th colspan="5" class="table-success">Inscritos na 3ª Divisão (Categoria F e Iniciantes): <?php echo count($inscritos3); ?></th>
               </tr>
             </thead>
             <tbody>
               <tr class="text-center">
-                <td>TOTAL ARRECADADO: R$ <?php echo $prize3['total_arrecadado']; ?></td>
-                <td>1º lugar: R$ <?php echo $prize3['1º lugar']; ?></td>
-                <td>2º lugar: R$ <?php echo $prize3['2º lugar']; ?></td>
-                <td>3º lugar (cada): R$ <?php echo $prize3['3º lugar (cada)']; ?></td>
+                <td class="table-primary"><strong>Total: R$ <?php echo $prize3['total_arrecadado']; ?></strong></td>
+                <td class="table-primary"><strong>1º lugar: R$ <?php echo $prize3['1º lugar']; ?></strong></td>
+                <td class="table-primary"><strong>2º lugar: R$ <?php echo $prize3['2º lugar']; ?></strong></td>
+                <td class="table-primary"><strong>3º lugar (cada): R$ <?php echo $prize3['3º lugar (cada)']; ?></strong></td>
               </tr>
               <?php foreach ($inscritos3 as $atleta): ?>
               <tr class="text-center">
@@ -153,24 +154,22 @@ $prize4 = $game->prize(count($inscritos4));
     </div>
   </div>
 
-  <hr>
-
-  <div class="container">
+  <div class="container mb-5">
     <div class="row">
       <div class="col">
         <div class="table-responsive">
           <table class="table table-striped table-hover table-bordered">
             <thead>
               <tr class="text-center">
-                <th colspan="5">Inscritos na Divisão Feminina: <?php echo count($inscritos4); ?></th>
+                <th colspan="5" class="table-success">Inscritos na Divisão Feminina: <?php echo count($inscritos4); ?></th>
               </tr>
             </thead>
             <tbody>
               <tr class="text-center">
-                <td>TOTAL ARRECADADO: R$ <?php echo $prize4['total_arrecadado']; ?></td>
-                <td>1º lugar: R$ <?php echo $prize4['1º lugar']; ?></td>
-                <td>2º lugar: R$ <?php echo $prize4['2º lugar']; ?></td>
-                <td>3º lugar (cada): R$ <?php echo $prize4['3º lugar (cada)']; ?></td>
+                <td class="table-primary"><strong>Total: R$ <?php echo $prize4['total_arrecadado']; ?></strong></td>
+                <td class="table-primary"><strong>1º lugar: R$ <?php echo $prize4['1º lugar']; ?></strong></td>
+                <td class="table-primary"><strong>2º lugar: R$ <?php echo $prize4['2º lugar']; ?></strong></td>
+                <td class="table-primary"><strong>3º lugar (cada): R$ <?php echo $prize4['3º lugar (cada)']; ?></strong></td>
               </tr>
               <?php foreach ($inscritos4 as $atleta): ?>
               <tr class="text-center">
