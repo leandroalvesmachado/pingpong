@@ -75,14 +75,15 @@ try {
     // Gerando partidas
     $matches = $game->matches($groups);
 
-    foreach ($matches as $group => $games) {
-        foreach ($games as $match) {
-            $html .= "
-                <div style='page-break-inside: avoid; margin-bottom: 25px;'>
-                    ".$game->match("{$title} - GRUPO {$group} - JOGO {$match['jogo']}", $match['jogador1'], $match['jogador2'])."
-                </div>
-            ";
-        }
+    // Ordem do jogos (Melhorar)
+    $gamesOrder = $game->order($matches);
+
+    foreach ($gamesOrder as $match) {
+        $html .= "
+            <div style='page-break-inside: avoid; margin-bottom: 25px;'>
+                ".$game->match("{$title} - GRUPO {$match['grupo']} - JOGO {$match['jogo']}", $match['jogador1'], $match['jogador2'])."
+            </div>
+        ";
     }
 
     if ($total == 4 || $total == 5) {
