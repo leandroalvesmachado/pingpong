@@ -17,15 +17,15 @@ try {
     switch ($file) {
         case '1_divisao.csv':
             $pdf = '1_divisao';
-            $title = '1ª Divisão (Categorias A, B, C)';
+            $title = '1ª Divisão';
             break;
         case '2_divisao.csv':
             $pdf = '2_divisao';
-            $title = '2ª Divisão (Categorias D, E)';
+            $title = '2ª Divisão';
             break;
         case '3_divisao.csv':
             $pdf = '3_divisao';
-            $title = '3ª Divisão (Categoria F, Iniciantes)';
+            $title = '3ª Divisão';
             break;
         case 'feminina.csv':
             $pdf = 'feminina_divisao';
