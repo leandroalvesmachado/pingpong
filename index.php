@@ -36,7 +36,7 @@ $prize4 = $game->prize(count($inscritos4));
     </div>
     <div class="row text-center">
       <div class="col">
-        <h1>3º Torneio Interno de Tênis de Mesa</h1>
+        <h1>4º Torneio Interno de Tênis de Mesa</h1>
       </div>
     </div>
   </div>
@@ -47,7 +47,7 @@ $prize4 = $game->prize(count($inscritos4));
           <table class="table table-striped table-hover table-bordered">
             <thead>
               <tr class="text-center">
-                <th colspan="5" class="table-success">Inscritos na 1ª Divisão (Categorias A, B e C): <?php echo count($inscritos1); ?></th>
+                <th colspan="5" class="table-success">1ª Divisão (ABS. Masculino A, B e C): <?php echo count($inscritos1); ?></th>
               </tr>
             </thead>
             <tbody>
@@ -85,7 +85,7 @@ $prize4 = $game->prize(count($inscritos4));
           <table class="table table-striped table-hover table-bordered">
             <thead>
               <tr class="text-center">
-                <th colspan="5" class="table-success">Inscritos na 2ª Divisão (Categorias D e E): <?php echo count($inscritos2); ?></th>
+                <th colspan="5" class="table-success">2ª Divisão (ABS. Masculino D, E e ABS. Feminino B e C): <?php echo count($inscritos2); ?></th>
               </tr>
             </thead>
             <tbody>
@@ -123,7 +123,7 @@ $prize4 = $game->prize(count($inscritos4));
           <table class="table table-striped table-hover table-bordered">
             <thead>
               <tr class="text-center">
-                <th colspan="5" class="table-success">Inscritos na 3ª Divisão (Categoria F e Iniciantes): <?php echo count($inscritos3); ?></th>
+                <th colspan="5" class="table-success">3ª Divisão (ABS. Masculino F e ABS. Feminino D): <?php echo count($inscritos3); ?></th>
               </tr>
             </thead>
             <tbody>
