@@ -31,6 +31,10 @@ try {
             $pdf = 'feminina_divisao';
             $title = 'Feminina';
             break;
+        case 'iniciante.csv':
+            $pdf = 'iniciante_divisao';
+            $title = 'Iniciante';
+            break;
         default:
             # code...
             break;

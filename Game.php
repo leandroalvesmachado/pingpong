@@ -353,7 +353,34 @@ class Game
             $jogo['jogo'] = $i + 1;
         }
 
-        return $ordenado;
+        // echo"<pre>";
+        // print_r($ordenado);
+
+        // Agrupar por grupo
+        $grupos = [];
+        foreach ($ordenado as $p) {
+            $grupos[$p['grupo']][] = $p;
+        }
+
+        // Intercalar os jogos (1º jogo de cada grupo, depois 2º, etc)
+        $resultado = [];
+        $max = max(array_map('count', $grupos)); // máximo de jogos por grupo
+
+        for ($i = 0; $i < $max; $i++) {
+            foreach ($grupos as $grupo => $jogos) {
+                if (isset($jogos[$i])) {
+                    $resultado[] = $jogos[$i];
+                }
+            }
+        }
+
+        // foreach ($resultado as $r) {
+        //     echo "Jogo {$r['jogo']} - Grupo {$r['grupo']} - {$r['jogador1']} vs {$r['jogador2']}\n<br>";
+        // }
+
+        // exit();
+
+        return $resultado;
 
         // $jogosPorRodada = [];
         // $maxJogosPorGrupo = 0;

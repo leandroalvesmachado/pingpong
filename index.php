@@ -16,7 +16,11 @@ $csv3 = new Csv(__DIR__ . '/3_divisao.csv', ';');
 $inscritos3 = $csv3->read();
 $prize3 = $game->prize(count($inscritos3));
 
-$csv4 = new Csv(__DIR__ . '/feminina.csv', ';');
+// $csv4 = new Csv(__DIR__ . '/feminina.csv', ';');
+// $inscritos4 = $csv4->read();
+// $prize4 = $game->prize(count($inscritos4));
+
+$csv4 = new Csv(__DIR__ . '/iniciante.csv', ';');
 $inscritos4 = $csv4->read();
 $prize4 = $game->prize(count($inscritos4));
 ?>
@@ -161,7 +165,7 @@ $prize4 = $game->prize(count($inscritos4));
           <table class="table table-striped table-hover table-bordered">
             <thead>
               <tr class="text-center">
-                <th colspan="5" class="table-success">Inscritos na Divisão Feminina: <?php echo count($inscritos4); ?></th>
+                <th colspan="5" class="table-success">Inscritos na Divisão Iniciante: <?php echo count($inscritos4); ?></th>
               </tr>
             </thead>
             <tbody>
@@ -180,7 +184,7 @@ $prize4 = $game->prize(count($inscritos4));
                 <td colspan="5">
                   <form action="script.php?arquivo=feminina.csv" method="post" target="_blank">
                     <div class="d-grid gap-2 col-6 mx-auto">
-                      <button type="submit" class="btn btn-primary">Sorteio Divisão Feminina</button>
+                      <button type="submit" class="btn btn-primary">Sorteio Divisão Iniciante</button>
                     </div>
                   </form>
                 </td>
