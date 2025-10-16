@@ -182,7 +182,7 @@ $prize4 = $game->prize(count($inscritos4));
               <?php endforeach; ?>
               <tr>
                 <td colspan="5">
-                  <form action="script.php?arquivo=feminina.csv" method="post" target="_blank">
+                  <form action="script.php?arquivo=iniciante.csv" method="post" target="_blank">
                     <div class="d-grid gap-2 col-6 mx-auto">
                       <button type="submit" class="btn btn-primary">Sorteio Divisão Iniciante</button>
                     </div>
