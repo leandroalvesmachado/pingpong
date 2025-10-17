@@ -85,7 +85,7 @@ try {
     foreach ($gamesOrder as $match) {
         $html .= "
             <div style='page-break-inside: avoid; margin-bottom: 25px;'>
-                ".$game->match("{$title} - GRUPO {$match['grupo']} - JOGO {$match['jogo']}", $match['jogador1'], $match['jogador2'])."
+                ".$game->match("{$title} - GRUPO {$match['grupo']}", $match['jogador1'], $match['jogador2'])."
             </div>
         ";
     }
