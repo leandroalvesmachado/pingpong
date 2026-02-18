@@ -119,6 +119,16 @@ try {
                 ".$game->match("{$title} - FINAL - VENCEDOR S1 x VENCEDOR S2", "", "", "15px")."
             </div>
         ";
+    } elseif ($total == 11) {
+        $html .= "
+            <div style='page-break-inside: avoid; margin-bottom: 25px;'>
+                ".$game->match("{$title} - QUARTA 1 - 2º GRUPO 2 x 2º GRUPO 3", "", "", "15px")."
+                ".$game->match("{$title} - QUARTA 2 - 2º GRUPO 1 x 1º GRUPO 3", "", "", "15px")."
+                ".$game->match("{$title} - SEMIFINAL 1 - 1º GRUPO 1 x VENCEDOR Q1", "", "", "15px")."
+                ".$game->match("{$title} - SEMIFINAL 2 - 1º GRUPO 2 x VENCEDOR Q2", "", "", "15px")."
+                ".$game->match("{$title} - FINAL - VENCEDOR S1 x VENCEDOR S2", "", "", "15px")."
+            </div>
+        ";
     } elseif ($total == 12) {
          $html .= "
             <div style='page-break-inside: avoid; margin-bottom: 25px;'>
