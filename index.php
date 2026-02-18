@@ -4,15 +4,15 @@ require_once __DIR__ . '/Game.php';
 
 $game = new Game();
 
-$csv1 = new Csv(__DIR__ . '/2026/1/1_divisao.csv', ';');
+$csv1 = new Csv(__DIR__ . '/1_divisao.csv', ';');
 $inscritos1 = $csv1->read();
 $prize1 = $game->prize(count($inscritos1));
 
-$csv2 = new Csv(__DIR__ . '/2026/1/2_divisao.csv', ';');
+$csv2 = new Csv(__DIR__ . '/2_divisao.csv', ';');
 $inscritos2 = $csv2->read();
 $prize2 = $game->prize(count($inscritos2));
 
-$csv3 = new Csv(__DIR__ . '/2026/1/iniciante.csv', ';');
+$csv3 = new Csv(__DIR__ . '/iniciante.csv', ';');
 $inscritos3 = $csv3->read();
 $prize3 = $game->prize(count($inscritos3));
 ?>
