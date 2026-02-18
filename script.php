@@ -153,6 +153,18 @@ try {
                 ".$game->match("{$title} - FINAL - VENCEDOR S1 x VENCEDOR S2", "", "", "15px")."
             </div>
         ";
+    } elseif ($total == 14) {
+        $html .= "
+            <div style='page-break-inside: avoid; margin-bottom: 25px;'>
+                ".$game->match("{$title} - QUARTA 1 - 1º GRUPO 1 x 2º GRUPO 4", "", "", "15px")."
+                ".$game->match("{$title} - QUARTA 2 - 1º GRUPO 2 x 2º GRUPO 3", "", "", "15px")."
+                ".$game->match("{$title} - QUARTA 3 - 1º GRUPO 3 x 2º GRUPO 1", "", "", "15px")."
+                ".$game->match("{$title} - QUARTA 4 - 1º GRUPO 4 x 2º GRUPO 2", "", "", "15px")."
+                ".$game->match("{$title} - SEMIFINAL 1 - VENCEDOR Q1 x VENCEDOR Q2", "", "", "15px")."
+                ".$game->match("{$title} - SEMIFINAL 2 - VENCEDOR Q3 x VENCEDOR Q4", "", "", "15px")."
+                ".$game->match("{$title} - FINAL - VENCEDOR S1 x VENCEDOR S2", "", "", "15px")."
+            </div>
+        ";
     } elseif ($total == 16) {
         $html .= "
             <div style='page-break-inside: avoid; margin-bottom: 25px;'>
