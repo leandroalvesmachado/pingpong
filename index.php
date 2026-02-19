@@ -54,7 +54,7 @@ $prize3 = $game->prize(count($inscritos3));
                 <td class="table-primary"><strong>3º lugar (cada): R$ <?php echo $prize1['3º lugar (cada)']; ?></strong></td>
               </tr>
               <?php foreach ($inscritos1 as $atleta): ?>
-              <tr class="text-center">
+              <tr class="text-center text-uppercase">
                 <td colspan="5"><?= htmlspecialchars($atleta) ?></td>
               </tr>
               <?php endforeach; ?>
@@ -94,7 +94,7 @@ $prize3 = $game->prize(count($inscritos3));
                 <td class="table-primary"><strong>3º lugar (cada): R$ <?php echo $prize2['3º lugar (cada)']; ?></strong></td>
               </tr>
               <?php foreach ($inscritos2 as $atleta): ?>
-              <tr class="text-center">
+              <tr class="text-center text-uppercase">
                 <td colspan="5"><?= htmlspecialchars($atleta) ?></td>
               </tr>
               <?php endforeach; ?>
@@ -134,7 +134,7 @@ $prize3 = $game->prize(count($inscritos3));
                 <td class="table-primary"><strong>3º lugar (cada): R$ <?php echo $prize3['3º lugar (cada)']; ?></strong></td>
               </tr>
               <?php foreach ($inscritos3 as $atleta): ?>
-              <tr class="text-center">
+              <tr class="text-center text-uppercase">
                 <td colspan="5"><?= htmlspecialchars($atleta) ?></td>
               </tr>
               <?php endforeach; ?>
@@ -142,7 +142,7 @@ $prize3 = $game->prize(count($inscritos3));
                 <td colspan="5">
                   <form action="script.php?arquivo=iniciante.csv" method="post" target="_blank">
                     <div class="d-grid gap-2 col-6 mx-auto">
-                      <button type="submit" class="btn btn-primary">Sorteio Divisão Iniciante</button>
+                      <button type="submit" class="btn btn-primary">Sorteio Iniciantes</button>
                     </div>
                   </form>
                 </td>
