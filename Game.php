@@ -48,6 +48,11 @@ class Game
             }
         }
 
+        // Ordena: menores primeiro, maiores no final
+        usort($groups, function ($a, $b) {
+            return count($a) <=> count($b);
+        });
+
         return $groups;
     }
 
@@ -72,8 +77,8 @@ class Game
             for ($i = 0; $i < $numPlayers; $i++) {
                 for ($j = $i + 1; $j < $numPlayers; $j++) {
                     $matches[] = [
-                        'jogo' => $gameNumber++,
-                        'grupo' => $groupIndex + 1,
+                        // 'jogo' => $gameNumber++,
+                        'grupo' => chr(65 + $groupIndex),
                         'jogador1' => $players[$i],
                         'jogador2' => $players[$j],
                     ];
@@ -86,42 +91,6 @@ class Game
         return $matchesByGroup;
     }
 
-    // public function group($groups): string
-    // {
-    //     $html = "";
-
-    //     foreach ($groups as $group => $athletes) {
-    //         $html .= "
-    //             <div style='page-break-inside: avoid; margin-bottom: 15px;'>
-    //                 <table style='width: 40%; border-collapse: collapse; border: 1px solid #ccc; margin-bottom: 10px; text-transform: uppercase;'>
-    //                     <thead>
-    //                         <tr>
-    //                             <th style='text-align: center; font-size: 12.5px; background: #f0f0f0; border: 1px solid #ccc; padding: 8px;'>
-    //                                 GRUPO ".($group + 1)."
-    //                             </th>
-    //                         </tr>
-    //                     </thead>
-    //                     <tbody>
-    //         ";
-
-    //         foreach ($athletes as $opponent) {
-    //             $html .= "
-    //                         <tr>
-    //                             <td style='border: 1px solid #ccc; padding: 6px; font-size: 11px; text-align: center;'>".htmlspecialchars($opponent)."</td>
-    //                         </tr>
-    //             ";
-    //         }
-
-    //         $html .= "
-    //                     </tbody>
-    //                 </table>
-    //             </div>
-    //         ";
-    //     }
-
-    //     return $html;
-    // }
-
     public function group($groups): string
     {
         $html = "<table style='width: 100%; border-collapse: collapse;'>\n<tr>";
@@ -131,18 +100,18 @@ class Game
             $html .= "<td style='width: 30%; vertical-align: top;'>";
 
             $html .= "
-                <table style='width: 100%; border-collapse: collapse; border: 1px solid #000000; margin-bottom: 10px; text-transform: uppercase;'>
+                <table style='width: 100%; border-collapse: collapse; border: 1px solid #000000; margin-bottom: 5px; text-transform: uppercase;'>
                     <thead>
                         <tr>
                             <th style='text-align: center; font-size: 12.5px; background: #f0f0f0; border: 1px solid #000000; padding: 8px;'>
-                                GRUPO ".($group + 1)."
+                                GRUPO ".chr(65 + $group)."
                             </th>
                         </tr>
                     </thead>
                     <tbody>
             ";
 
-            foreach ($athletes as $opponent) {
+            foreach ($athletes as $index => $opponent) {
                 $html .= "
                         <tr>
                             <td style='border: 1px solid #000000; padding: 6px; font-size: 11px; text-align: center;'>
@@ -171,105 +140,6 @@ class Game
 
         return $html;
     }
-
-    // public function group($groups): string
-    // {
-    //     $html = "";
-
-    //     foreach ($groups as $group => $athletes) {
-    //         $html .= "
-    //             <div style='page-break-inside: avoid; margin-bottom: 15px;'>
-    //                 <table style='width: 100%; border-collapse: collapse; border: 1px solid #ccc; margin-bottom: 10px; text-transform: uppercase;'>
-    //                     <thead>
-    //                         <tr>
-    //                             <th colspan='".(count($athletes) + 1)."' style='text-align: center; font-size: 12.5px; background: #f0f0f0; border: 1px solid #ccc; padding: 8px;'>
-    //                                 GRUPO ".($group + 1)."
-    //                             </th>
-    //                         </tr>
-    //                         <tr>
-    //                             <th style='border: 1px solid #ccc; padding: 6px; font-size: 12px;'>ATLETA</th>";
-
-    //         foreach ($athletes as $opponent) {
-    //             $html .= "
-    //                 <th style='border: 1px solid #ccc; padding: 6px; font-size: 11px; text-align: center;'>
-    //                     ".htmlspecialchars($opponent)."
-    //                 </th>";
-    //         }
-
-    //         $html .= "
-    //                         </tr>
-    //                     </thead>
-    //                     <tbody>
-    //         ";
-
-    //         foreach ($athletes as $i => $athlete) {
-    //             $html .= "
-    //                 <tr>
-    //                     <td style='border: 1px solid #ccc; font-size: 12.5px; padding: 5px;'>".htmlspecialchars($athlete)."</td>";
-
-    //             foreach ($athletes as $j => $opponent) {
-    //                 if ($i === $j) {
-    //                     $html .= "
-    //                         <td style='background: #f9f9f9; border: 1px solid #ccc; text-align: center;'>–</td>";
-    //                 } else {
-    //                     $html .= "
-    //                         <td style='border: 1px solid #ccc; text-align: center;'>
-    //                             <input type='checkbox' title='Vitória de ".htmlspecialchars($athlete)." sobre ".htmlspecialchars($opponent)."'>
-    //                         </td>";
-    //                 }
-    //             }
-
-    //             $html .= "</tr>";
-    //         }
-
-    //         $html .= "
-    //                     </tbody>
-    //                 </table>
-    //             </div>";
-    //     }
-
-    //     return $html;
-    // }
-
-    // public function group($groups): string
-    // {
-    //     $html = "";
-        
-    //     foreach ($groups as $group => $athletes) {
-    //         $html .= "
-    //             <div style='page-break-inside: avoid; margin-bottom: 15px;'>
-    //                 <table style='width:100%; border: 1px solid #808080; margin-bottom: 10px; border-radius: 2px;'>
-    //                     <thead>
-    //                         <tr>
-    //                             <th style='border-bottom: 1px solid black; font-size: 12.5px;' colspan='3'>GRUPO ".($group + 1)."</th>
-    //                         </tr>
-    //                         <tr>
-    //                             <th width='25%' style='padding: 5px; text-align: left; font-size: 12px;'></th>
-    //                             <th style='text-align: center; border: 0px solid; font-size: 12px;'>VITÓRIAS</th>
-    //                             <th style='text-align: center; border: 0px solid; font-size: 12px;'>DERROTAS</th>
-    //                         </tr>
-    //                     </thead>
-    //         ";
-    //         foreach ($athletes as $athlete) {
-    //             $html .= "
-    //                     <tbody>
-    //                         <tr>
-    //                             <td style='font-size: 12.5px;'>{$athlete}</td>
-    //                             <td style='text-align: center; border: 0px solid; font-size: 12px;'></td>
-    //                             <td style='text-align: center; border: 0px solid; font-size: 12px;'></td>
-    //                         </tr>
-    //                     </tbody>
-    //             ";
-    //         }
-
-    //         $html.= "
-    //                 </table>
-    //             </div>
-    //         ";
-    //     }
-
-    //     return $html;
-    // }
 
     public function match($game, $player1, $player2, $padding = "5px"): string
     {
@@ -313,6 +183,24 @@ class Game
         ";
     }
 
+    public function combat($game, $player1, $player2, $padding = "5px"): string
+    {
+        return "
+            <table style='width:100%; border-collapse: collapse; border: 0px solid #000000; border-radius: 2px;'>
+                <tbody>
+                    <tr>
+                        <td width='45%' style='padding: {$padding}; text-align: right; font-size: 12.5px; border: 0px solid #000000; text-transform: uppercase;'>{$game}</td>
+                        <td width='40%' style='padding: {$padding}; text-align: right; font-size: 12.5px; border: 0px solid #000000; text-transform: uppercase;'>{$player1}</td>
+                        <td width='5%' style='border:1px solid #000000;'></td>
+                        <td width='5%' style='text-align: center;'>x</td>
+                        <td width='5%' style='border:1px solid #000000;'></td>
+                        <td width='40%' style='padding: {$padding}; text-align: left; font-size: 12.5px; border: 0px solid #000000; text-transform: uppercase;'>{$player2}</td>
+                    </tr>
+                </tbody>
+            </table>
+        ";
+    }
+
     public function prize(int $totalCompetidores): array
     {
         $valorInscricao = 25;
@@ -332,78 +220,149 @@ class Game
         ];
     }
 
-    public function order(array $matchesByGroup): array
+    public function order(array $matchesByGroup)
     {
-        $ordenado = [];
-        $rodada = 0;
+        try {
+            foreach ($matchesByGroup as $key => $jogos) {
+                $totalJogos = count($jogos);
+                $grupo = $jogos[0]['grupo'];
+                $jogadores = [];
 
-        // Descobrir quantas rodadas no máximo há entre todos os grupos
-        $maxRodadas = max(array_map('count', $matchesByGroup));
+                // Extrai jogadores únicos
+                $jogadores = [];
+                foreach ($jogos as $jogo) {
+                    $jogadores[] = trim($jogo['jogador1']);
+                    $jogadores[] = trim($jogo['jogador2']);
+                }
+                $jogadores = array_values(array_unique($jogadores));
 
-        for ($rodada = 0; $rodada < $maxRodadas; $rodada++) {
-            foreach ($matchesByGroup as $grupo => $jogos) {
-                if (isset($jogos[$rodada])) {
-                    $ordenado[] = $jogos[$rodada];
+                // Grupo com 3 jogadores
+                if ($totalJogos === 3 && count($jogadores) === 3) {
+                    $grupos[$key] = [
+                        [
+                            'grupo' => $grupo,
+                            'jogador1' => $jogadores[0], // 1º
+                            'jogador2' => $jogadores[2], // 3º
+                        ],
+                        [
+                            'grupo' => $grupo,
+                            'jogador1' => $jogadores[1], // 2º
+                            'jogador2' => $jogadores[2], // 3º
+                        ],
+                        [
+                            'grupo' => $grupo,
+                            'jogador1' => $jogadores[0], // 1º
+                            'jogador2' => $jogadores[1], // 2º
+                        ],
+                    ];
+                }
+
+                // Grupo com 4 jogadores
+                if ($totalJogos === 6 && count($jogadores) === 4) {
+                    $grupos[$key] = [
+                        // Rodada 1
+                        ['grupo'=>$grupo,'jogador1'=>$jogadores[0],'jogador2'=>$jogadores[3]],
+                        ['grupo'=>$grupo,'jogador1'=>$jogadores[1],'jogador2'=>$jogadores[2]],
+
+                        // Rodada 2
+                        ['grupo'=>$grupo,'jogador1'=>$jogadores[0],'jogador2'=>$jogadores[2]],
+                        ['grupo'=>$grupo,'jogador1'=>$jogadores[3],'jogador2'=>$jogadores[1]],
+
+                        // Rodada 3
+                        ['grupo'=>$grupo,'jogador1'=>$jogadores[0],'jogador2'=>$jogadores[1]],
+                        ['grupo'=>$grupo,'jogador1'=>$jogadores[2],'jogador2'=>$jogadores[3]],
+                    ];
                 }
             }
+
+            return $grupos;
+        } catch (\Exception $e) {
+            print_r($e->getMessage());
+            exit;
         }
-
-        // Renumerar os jogos em ordem
-        foreach ($ordenado as $i => &$jogo) {
-            $jogo['jogo'] = $i + 1;
-        }
-
-        // echo"<pre>";
-        // print_r($ordenado);
-
-        // Agrupar por grupo
-        $grupos = [];
-        foreach ($ordenado as $p) {
-            $grupos[$p['grupo']][] = $p;
-        }
-
-        // Intercalar os jogos (1º jogo de cada grupo, depois 2º, etc)
-        $resultado = [];
-        $max = max(array_map('count', $grupos)); // máximo de jogos por grupo
-
-        for ($i = 0; $i < $max; $i++) {
-            foreach ($grupos as $grupo => $jogos) {
-                if (isset($jogos[$i])) {
-                    $resultado[] = $jogos[$i];
-                }
-            }
-        }
-
-        // foreach ($resultado as $r) {
-        //     echo "Jogo {$r['jogo']} - Grupo {$r['grupo']} - {$r['jogador1']} vs {$r['jogador2']}\n<br>";
-        // }
-
-        // exit();
-
-        return $resultado;
-
-        // $jogosPorRodada = [];
-        // $maxJogosPorGrupo = 0;
-
-        // // Descobre o maior número de jogos em um grupo
-        // foreach ($matchesByGroup as $matches) {
-        //     $maxJogosPorGrupo = max($maxJogosPorGrupo, count($matches));
-        // }
-
-        // // Para cada rodada (posição), pegamos o i-ésimo jogo de cada grupo
-        // for ($i = 0; $i < $maxJogosPorGrupo; $i++) {
-        //     foreach ($matchesByGroup as $grupo => $jogos) {
-        //         if (isset($jogos[$i])) {
-        //             $jogosPorRodada[] = $jogos[$i];
-        //         }
-        //     }
-        // }
-
-        // // Reorganiza os números dos jogos sequencialmente
-        // foreach ($jogosPorRodada as $index => &$jogo) {
-        //     $jogo['jogo'] = $index + 1;
-        // }
-
-        // return $jogosPorRodada;
     }
+
+    public function orderFinal(array $grupos): array
+    {
+        $rodadas = [];
+
+        foreach ($grupos as $grupo) {
+
+            $totalJogos = count($grupo);
+
+            // Grupo de 3 jogadores (3 jogos)
+            if ($totalJogos === 3) {
+
+                $rodadas[0][] = $grupo[0];
+                $rodadas[1][] = $grupo[1];
+                $rodadas[2][] = $grupo[2];
+            }
+
+            // Grupo de 4 jogadores (6 jogos)
+            if ($totalJogos === 6) {
+
+                $rodadas[0][] = $grupo[0];
+                $rodadas[0][] = $grupo[1];
+
+                $rodadas[1][] = $grupo[2];
+                $rodadas[1][] = $grupo[3];
+
+                $rodadas[2][] = $grupo[4];
+                $rodadas[2][] = $grupo[5];
+            }
+        }
+
+        // Junta todas rodadas numa ordem única
+        $ordemFinal = [];
+
+        foreach ($rodadas as $rodada) {
+            foreach ($rodada as $jogo) {
+                $ordemFinal[] = $jogo;
+            }
+        }
+
+        return $ordemFinal;
+    }
+
+    // public function order(array $matchesByGroup): array
+    // {
+    //     $ordenado = [];
+    //     $rodada = 0;
+
+    //     // Descobrir quantas rodadas no máximo há entre todos os grupos
+    //     $maxRodadas = max(array_map('count', $matchesByGroup));
+
+    //     for ($rodada = 0; $rodada < $maxRodadas; $rodada++) {
+    //         foreach ($matchesByGroup as $grupo => $jogos) {
+    //             if (isset($jogos[$rodada])) {
+    //                 $ordenado[] = $jogos[$rodada];
+    //             }
+    //         }
+    //     }
+
+    //     // Renumerar os jogos em ordem
+    //     foreach ($ordenado as $i => &$jogo) {
+    //         $jogo['jogo'] = $i + 1;
+    //     }
+
+    //     // Agrupar por grupo
+    //     $grupos = [];
+    //     foreach ($ordenado as $p) {
+    //         $grupos[$p['grupo']][] = $p;
+    //     }
+
+    //     // Intercalar os jogos (1º jogo de cada grupo, depois 2º, etc)
+    //     $resultado = [];
+    //     $max = max(array_map('count', $grupos)); // máximo de jogos por grupo
+
+    //     for ($i = 0; $i < $max; $i++) {
+    //         foreach ($grupos as $grupo => $jogos) {
+    //             if (isset($jogos[$i])) {
+    //                 $resultado[] = $jogos[$i];
+    //             }
+    //         }
+    //     }
+
+    //     return $resultado;
+    // }
 }

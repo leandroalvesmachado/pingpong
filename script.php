@@ -59,14 +59,11 @@ try {
     $total = count($players);
     $prize = $game->prize($total);
 
-    $html .= "<br><div style='font-size: 13px;'>TOTAL DE ATLETAS: {$total}</div>";
-    
-    $html .= "<div style='font-size: 14px; text-transform: uppercase;'>";
+    $html .= "<div style='font-size: 12px;'>TOTAL DE ATLETAS: {$total}</div>";
+    $html .= "<div style='font-size: 12px; text-transform: uppercase;'>";
     $html .= implode(', ', array_map('trim', $players));
     $html .= "</div>";
-    $html .= "<br><div style='font-size: 14px;'>PREMIAÇÃO</div>";
-    $html .= "<div style='font-size: 14px; text-transform: uppercase;'>1º lugar: 40% do total / 2º lugar: 30% do total / 3º lugar (cada): 15% para cada um</div><br>";
-
+    $html .= "<br><div style='font-size: 12px; text-transform: uppercase;'>PREMIAÇÃO: 1º lugar: 40% do total / 2º lugar: 30% do total / 3º lugar (cada): 15% do total<</div><br>";
 
     // Ordem aleatória
     shuffle($players);
@@ -82,10 +79,20 @@ try {
     // Ordem do jogos (Melhorar)
     $gamesOrder = $game->order($matches);
 
-    foreach ($gamesOrder as $match) {
+    $gamesOrderFinal = $game->orderFinal($gamesOrder);
+
+    foreach ($gamesOrderFinal as $index => $match) {
+        $html .= "
+            <div style='page-break-inside: avoid; margin-bottom: 2px;'>
+                ".$game->combat("Jogo ".($index + 1)." - {$title} - GRUPO {$match['grupo']}", $match['jogador1'], $match['jogador2'])."
+            </div>
+        ";
+    }
+
+    foreach ($gamesOrderFinal as $index => $match) {
         $html .= "
             <div style='page-break-inside: avoid; margin-bottom: 25px;'>
-                ".$game->match("{$title} - GRUPO {$match['grupo']}", $match['jogador1'], $match['jogador2'])."
+                ".$game->match("Jogo ".($index + 1)." - {$title} - GRUPO {$match['grupo']}", $match['jogador1'], $match['jogador2'])."
             </div>
         ";
     }
@@ -93,144 +100,97 @@ try {
     if ($total == 4 || $total == 5) {
         // grupo unico
     } elseif ($total == 6) {
-    } elseif ($total == 7) {
+    } elseif ($total == 7 || $total == 8) {
         $html .= "
             <div style='page-break-inside: avoid; margin-bottom: 25px;'>
-                ".$game->match("{$title} - SEMIFINAL 1 - 1º GRUPO 1 x 2º GRUPO 2", "", "", "15px")."
-                ".$game->match("{$title} - SEMIFINAL 2 - 1º GRUPO 2 x 2º GRUPO 1", "", "", "15px")."
-                ".$game->match("{$title} - FINAL - VENCEDOR S1 x VENCEDOR S2", "", "", "15px")."
+                ".$game->match("{$title} - SEMIFINAL 1 - 1º GRUPO A x 2º GRUPO B", "", "", "15px")."
+                ".$game->match("{$title} - SEMIFINAL 2 - 1º GRUPO B x 2º GRUPO A", "", "", "15px")."
+                ".$game->match("{$title} - FINAL - VENCEDOR SEMIFINAL 1 x VENCEDOR SEMIFINAL 2", "", "", "15px")."
             </div>
         ";
-    } elseif ($total == 8) {
+    } elseif ($total == 9) {
+    } elseif ($total == 10 || $total == 11) {
         $html .= "
             <div style='page-break-inside: avoid; margin-bottom: 25px;'>
-                ".$game->match("{$title} - SEMIFINAL 1 - 1º GRUPO 1 x 2º GRUPO 2", "", "", "15px")."
-                ".$game->match("{$title} - SEMIFINAL 2 - 1º GRUPO 2 x 2º GRUPO 1", "", "", "15px")."
-                ".$game->match("{$title} - FINAL - VENCEDOR S1 x VENCEDOR S2", "", "", "15px")."
-            </div>
-        ";
-    } elseif ($total == 10) {
-        $html .= "
-            <div style='page-break-inside: avoid; margin-bottom: 25px;'>
-                ".$game->match("{$title} - QUARTA 1 - 2º GRUPO 2 x 2º GRUPO 3", "", "", "15px")."
-                ".$game->match("{$title} - QUARTA 2 - 2º GRUPO 1 x 1º GRUPO 3", "", "", "15px")."
-                ".$game->match("{$title} - SEMIFINAL 1 - 1º GRUPO 1 x VENCEDOR Q1", "", "", "15px")."
-                ".$game->match("{$title} - SEMIFINAL 2 - 1º GRUPO 2 x VENCEDOR Q2", "", "", "15px")."
-                ".$game->match("{$title} - FINAL - VENCEDOR S1 x VENCEDOR S2", "", "", "15px")."
-            </div>
-        ";
-    } elseif ($total == 11) {
-        $html .= "
-            <div style='page-break-inside: avoid; margin-bottom: 25px;'>
-                ".$game->match("{$title} - QUARTA 1 - 2º GRUPO 2 x 2º GRUPO 3", "", "", "15px")."
-                ".$game->match("{$title} - QUARTA 2 - 2º GRUPO 1 x 1º GRUPO 3", "", "", "15px")."
-                ".$game->match("{$title} - SEMIFINAL 1 - 1º GRUPO 1 x VENCEDOR Q1", "", "", "15px")."
-                ".$game->match("{$title} - SEMIFINAL 2 - 1º GRUPO 2 x VENCEDOR Q2", "", "", "15px")."
-                ".$game->match("{$title} - FINAL - VENCEDOR S1 x VENCEDOR S2", "", "", "15px")."
+                ".$game->match("{$title} - QUARTA 1 - 2º GRUPO B x 2º GRUPO C", "", "", "15px")."
+                ".$game->match("{$title} - QUARTA 2 - 2º GRUPO A x 1º GRUPO C", "", "", "15px")."
+                ".$game->match("{$title} - SEMIFINAL 1 - 1º GRUPO A x VENCEDOR QUARTA 1", "", "", "15px")."
+                ".$game->match("{$title} - SEMIFINAL 2 - 1º GRUPO B x VENCEDOR QUARTA 2", "", "", "15px")."
+                ".$game->match("{$title} - FINAL - VENCEDOR SEMIFINAL 1 x VENCEDOR SEMIFINAL 2", "", "", "15px")."
             </div>
         ";
     } elseif ($total == 12) {
          $html .= "
             <div style='page-break-inside: avoid; margin-bottom: 25px;'>
-                ".$game->match("{$title} - QUARTA 1 - 1º GRUPO 1 x 2º GRUPO 4", "", "", "15px")."
-                ".$game->match("{$title} - QUARTA 2 - 1º GRUPO 2 x 2º GRUPO 3", "", "", "15px")."
-                ".$game->match("{$title} - QUARTA 3 - 1º GRUPO 3 x 2º GRUPO 2", "", "", "15px")."
-                ".$game->match("{$title} - QUARTA 4 - 1º GRUPO 4 x 2º GRUPO 1", "", "", "15px")."
-                ".$game->match("{$title} - SEMIFINAL 1 - VENCEDOR Q1 x VENCEDOR Q2", "", "", "15px")."
-                ".$game->match("{$title} - SEMIFINAL 2 - VENCEDOR Q3 x VENCEDOR Q4", "", "", "15px")."
-                ".$game->match("{$title} - FINAL - VENCEDOR S1 x VENCEDOR S2", "", "", "15px")."
+                ".$game->match("{$title} - QUARTA 1 - 1º GRUPO A x 2º GRUPO D", "", "", "15px")."
+                ".$game->match("{$title} - QUARTA 2 - 1º GRUPO B x 2º GRUPO C", "", "", "15px")."
+                ".$game->match("{$title} - QUARTA 3 - 1º GRUPO C x 2º GRUPO B", "", "", "15px")."
+                ".$game->match("{$title} - QUARTA 4 - 1º GRUPO D x 2º GRUPO A", "", "", "15px")."
+                ".$game->match("{$title} - SEMIFINAL 1 - VENCEDOR QUARTA 1 x VENCEDOR QUARTA 2", "", "", "15px")."
+                ".$game->match("{$title} - SEMIFINAL 2 - VENCEDOR QUARTA 3 x VENCEDOR QUARTA 4", "", "", "15px")."
+                ".$game->match("{$title} - FINAL - VENCEDOR SEMIFINAL 1 x VENCEDOR SEMIFINAL 2", "", "", "15px")."
             </div>
         ";
-    } elseif ($total == 13) {
+    } elseif ($total == 13 || $total == 14) {
         $html .= "
             <div style='page-break-inside: avoid; margin-bottom: 25px;'>
-                ".$game->match("{$title} - QUARTA 1 - 1º GRUPO 1 x 2º GRUPO 4", "", "", "15px")."
-                ".$game->match("{$title} - QUARTA 2 - 1º GRUPO 2 x 2º GRUPO 3", "", "", "15px")."
-                ".$game->match("{$title} - QUARTA 3 - 1º GRUPO 3 x 2º GRUPO 1", "", "", "15px")."
-                ".$game->match("{$title} - QUARTA 4 - 1º GRUPO 4 x 2º GRUPO 2", "", "", "15px")."
-                ".$game->match("{$title} - SEMIFINAL 1 - VENCEDOR Q1 x VENCEDOR Q2", "", "", "15px")."
-                ".$game->match("{$title} - SEMIFINAL 2 - VENCEDOR Q3 x VENCEDOR Q4", "", "", "15px")."
-                ".$game->match("{$title} - FINAL - VENCEDOR S1 x VENCEDOR S2", "", "", "15px")."
-            </div>
-        ";
-    } elseif ($total == 14) {
-        $html .= "
-            <div style='page-break-inside: avoid; margin-bottom: 25px;'>
-                ".$game->match("{$title} - QUARTA 1 - 1º GRUPO 1 x 2º GRUPO 4", "", "", "15px")."
-                ".$game->match("{$title} - QUARTA 2 - 1º GRUPO 2 x 2º GRUPO 3", "", "", "15px")."
-                ".$game->match("{$title} - QUARTA 3 - 1º GRUPO 3 x 2º GRUPO 1", "", "", "15px")."
-                ".$game->match("{$title} - QUARTA 4 - 1º GRUPO 4 x 2º GRUPO 2", "", "", "15px")."
-                ".$game->match("{$title} - SEMIFINAL 1 - VENCEDOR Q1 x VENCEDOR Q2", "", "", "15px")."
-                ".$game->match("{$title} - SEMIFINAL 2 - VENCEDOR Q3 x VENCEDOR Q4", "", "", "15px")."
-                ".$game->match("{$title} - FINAL - VENCEDOR S1 x VENCEDOR S2", "", "", "15px")."
+                ".$game->match("{$title} - QUARTA 1 - 1º GRUPO A x 2º GRUPO E", "", "", "15px")."
+                ".$game->match("{$title} - QUARTA 2 - 1º GRUPO B x 2º GRUPO C", "", "", "15px")."
+                ".$game->match("{$title} - QUARTA 3 - 1º GRUPO C x 2º GRUPO A", "", "", "15px")."
+                ".$game->match("{$title} - QUARTA 4 - 1º GRUPO D x 2º GRUPO B", "", "", "15px")."
+                ".$game->match("{$title} - SEMIFINAL 1 - VENCEDOR QUARTA 1 x VENCEDOR QUARTA 2", "", "", "15px")."
+                ".$game->match("{$title} - SEMIFINAL 2 - VENCEDOR QUARTA 3 x VENCEDOR QUARTA 4", "", "", "15px")."
+                ".$game->match("{$title} - FINAL - VENCEDOR SEMIFINAL 1 x VENCEDOR SEMIFINAL 2", "", "", "15px")."
             </div>
         ";
     } elseif ($total == 15) {
         $html .= "
             <div style='page-break-inside: avoid; margin-bottom: 25px;'>
-                ".$game->match("{$title} - OITAVA 1 - 2º GRUPO 2 x 2º GRUPO 5", "", "", "15px")."
-                ".$game->match("{$title} - OITAVA 2 - 2º GRUPO 3 x 2º GRUPO 4", "", "", "15px")."
-                ".$game->match("{$title} - QUARTA 1 - 1º GRUPO 1 x VENCEDOR O1", "", "", "15px")."
-                ".$game->match("{$title} - QUARTA 2 - 1º GRUPO 2 x VENCEDOR O2", "", "", "15px")."
-                ".$game->match("{$title} - QUARTA 3 - 1º GRUPO 3 x 1º GRUPO 4", "", "", "15px")."
-                ".$game->match("{$title} - QUARTA 4 - 1º GRUPO 5 x 2º GRUPO 1", "", "", "15px")."
-                ".$game->match("{$title} - SEMIFINAL 1 - VENCEDOR Q1 x VENCEDOR Q3", "", "", "15px")."
-                ".$game->match("{$title} - SEMIFINAL 2 - VENCEDOR Q2 x VENCEDOR Q4", "", "", "15px")."
+                ".$game->match("{$title} - OITAVA 1 - 2º GRUPO B x 2º GRUPO E", "", "", "15px")."
+                ".$game->match("{$title} - OITAVA 2 - 2º GRUPO C x 2º GRUPO D", "", "", "15px")."
+                ".$game->match("{$title} - QUARTA 1 - 1º GRUPO A x VENCEDOR OITAVA 1", "", "", "15px")."
+                ".$game->match("{$title} - QUARTA 2 - 1º GRUPO B x VENCEDOR OITAVA 2", "", "", "15px")."
+                ".$game->match("{$title} - QUARTA 3 - 1º GRUPO C x 1º GRUPO D", "", "", "15px")."
+                ".$game->match("{$title} - QUARTA 4 - 1º GRUPO E x 2º GRUPO A", "", "", "15px")."
+                ".$game->match("{$title} - SEMIFINAL 1 - VENCEDOR QUARTA 1 x VENCEDOR QUARTA 3", "", "", "15px")."
+                ".$game->match("{$title} - SEMIFINAL 2 - VENCEDOR QUARTA 2 x VENCEDOR QUARTA 4", "", "", "15px")."
             </div>
             <div style='page-break-inside: avoid; margin-bottom: 25px;'>
-                ".$game->match("{$title} - FINAL - VENCEDOR S1 x VENCEDOR S2", "", "", "15px")."
-            </div>
-        ";
-    } elseif ($total == 16) {
-        $html .= "
-            <div style='page-break-inside: avoid; margin-bottom: 25px;'>
-                ".$game->match("{$title} - OITAVA 1 - 2º GRUPO 2 x 2º GRUPO 5", "", "", "15px")."
-                ".$game->match("{$title} - OITAVA 2 - 2º GRUPO 3 x 2º GRUPO 4", "", "", "15px")."
-                ".$game->match("{$title} - QUARTA 1 - 1º GRUPO 1 x VENCEDOR O1", "", "", "15px")."
-                ".$game->match("{$title} - QUARTA 2 - 1º GRUPO 2 x VENCEDOR O2", "", "", "15px")."
-                ".$game->match("{$title} - QUARTA 3 - 1º GRUPO 3 x 1º GRUPO 4", "", "", "15px")."
-                ".$game->match("{$title} - QUARTA 4 - 1º GRUPO 5 x 2º GRUPO 1", "", "", "15px")."
-                ".$game->match("{$title} - SEMIFINAL 1 - VENCEDOR Q1 x VENCEDOR Q3", "", "", "15px")."
-                ".$game->match("{$title} - SEMIFINAL 2 - VENCEDOR Q2 x VENCEDOR Q4", "", "", "15px")."
-            </div>
-            <div style='page-break-inside: avoid; margin-bottom: 25px;'>
-                ".$game->match("{$title} - FINAL - VENCEDOR S1 x VENCEDOR S2", "", "", "15px")."
+                ".$game->match("{$title} - FINAL - VENCEDOR SEMIFINAL 1 x VENCEDOR SEMIFINAL 2", "", "", "15px")."
             </div>
         ";
-    } elseif ($total == 17) {
+    } elseif ($total == 16 || $total == 17) {
         $html .= "
             <div style='page-break-inside: avoid; margin-bottom: 25px;'>
-                ".$game->match("{$title} - OITAVA 1 - 2º GRUPO 2 x 2º GRUPO 5", "", "", "15px")."
-                ".$game->match("{$title} - OITAVA 2 - 2º GRUPO 3 x 2º GRUPO 4", "", "", "15px")."
-                ".$game->match("{$title} - QUARTA 1 - 1º GRUPO 1 x VENCEDOR O1", "", "", "15px")."
-                ".$game->match("{$title} - QUARTA 2 - 1º GRUPO 2 x VENCEDOR O2", "", "", "15px")."
-                ".$game->match("{$title} - QUARTA 3 - 1º GRUPO 3 x 1º GRUPO 4", "", "", "15px")."
-                ".$game->match("{$title} - QUARTA 4 - 1º GRUPO 5 x 2º GRUPO 1", "", "", "15px")."
-                ".$game->match("{$title} - SEMIFINAL 1 - VENCEDOR Q1 x VENCEDOR Q3", "", "", "15px")."
-                ".$game->match("{$title} - SEMIFINAL 2 - VENCEDOR Q2 x VENCEDOR Q4", "", "", "15px")."
+                ".$game->match("{$title} - OITAVA 1 - 2º GRUPO B x 2º GRUPO E", "", "", "15px")."
+                ".$game->match("{$title} - OITAVA 2 - 2º GRUPO C x 2º GRUPO D", "", "", "15px")."
+                ".$game->match("{$title} - QUARTA 1 - 1º GRUPO A x VENCEDOR OITAVA 1", "", "", "15px")."
+                ".$game->match("{$title} - QUARTA 2 - 1º GRUPO B x VENCEDOR OITAVA 2", "", "", "15px")."
+                ".$game->match("{$title} - QUARTA 3 - 1º GRUPO C x 1º GRUPO D", "", "", "15px")."
+                ".$game->match("{$title} - QUARTA 4 - 1º GRUPO E x 2º GRUPO A", "", "", "15px")."
+                ".$game->match("{$title} - SEMIFINAL 1 - VENCEDOR QUARTA 1 x VENCEDOR QUARTA 3", "", "", "15px")."
+                ".$game->match("{$title} - SEMIFINAL 2 - VENCEDOR QUARTA 2 x VENCEDOR QUARTA 4", "", "", "15px")."
             </div>
             <div style='page-break-inside: avoid; margin-bottom: 25px;'>
-                ".$game->match("{$title} - FINAL - VENCEDOR S1 x VENCEDOR S2", "", "", "15px")."
+                ".$game->match("{$title} - FINAL - VENCEDOR SEMIFINAL 1 x VENCEDOR SEMIFINAL 2", "", "", "15px")."
             </div>
         ";
     } elseif ($total == 18) {
         $html .= "
             <div style='page-break-inside: avoid; margin-bottom: 25px;'>
-                ".$game->match("{$title} - OITAVA 1 - 1º GRUPO 5 x 2º GRUPO 3", "", "", "15px")."
-                ".$game->match("{$title} - OITAVA 2 - 1º GRUPO 6 x 2º GRUPO 4", "", "", "15px")."
-                ".$game->match("{$title} - OITAVA 3 - 2º GRUPO 1 x 2º GRUPO 5", "", "", "15px")."
-                ".$game->match("{$title} - OITAVA 4 - 2º GRUPO 2 x 2º GRUPO 6", "", "", "15px")."
-
-                ".$game->match("{$title} - QUARTA 1 - 1º GRUPO 1 x VENCEDOR O1", "", "", "15px")."
-                ".$game->match("{$title} - QUARTA 2 - 1º GRUPO 2 x VENCEDOR O2", "", "", "15px")."
-                ".$game->match("{$title} - QUARTA 3 - 1º GRUPO 3 x VENCEDOR O3", "", "", "15px")."
-                ".$game->match("{$title} - QUARTA 4 - 1º GRUPO 4 x VENCEDOR O4", "", "", "15px")."
-                
-                ".$game->match("{$title} - SEMIFINAL 1 - VENCEDOR Q1 x VENCEDOR Q3", "", "", "15px")."
-                ".$game->match("{$title} - SEMIFINAL 2 - VENCEDOR Q2 x VENCEDOR Q4", "", "", "15px")."
+                ".$game->match("{$title} - OITAVA 1 - 1º GRUPO E x 2º GRUPO C", "", "", "15px")."
+                ".$game->match("{$title} - OITAVA 2 - 1º GRUPO F x 2º GRUPO D", "", "", "15px")."
+                ".$game->match("{$title} - OITAVA 3 - 2º GRUPO A x 2º GRUPO E", "", "", "15px")."
+                ".$game->match("{$title} - OITAVA 4 - 2º GRUPO B x 2º GRUPO F", "", "", "15px")."
+                ".$game->match("{$title} - QUARTA 1 - 1º GRUPO 1 x VENCEDOR OITAVA 1", "", "", "15px")."
+                ".$game->match("{$title} - QUARTA 2 - 1º GRUPO 2 x VENCEDOR OITAVA 2", "", "", "15px")."
+                ".$game->match("{$title} - QUARTA 3 - 1º GRUPO 3 x VENCEDOR OITAVA 3", "", "", "15px")."
+                ".$game->match("{$title} - QUARTA 4 - 1º GRUPO 4 x VENCEDOR OITAVA 4", "", "", "15px")."
+                ".$game->match("{$title} - SEMIFINAL 1 - VENCEDOR QUARTA 1 x VENCEDOR QUARTA 3", "", "", "15px")."
+                ".$game->match("{$title} - SEMIFINAL 2 - VENCEDOR QUARTA 2 x VENCEDOR QUARTA 4", "", "", "15px")."
             </div>
             <div style='page-break-inside: avoid; margin-bottom: 25px;'>
-                ".$game->match("{$title} - FINAL - VENCEDOR S1 x VENCEDOR S2", "", "", "15px")."
+                ".$game->match("{$title} - FINAL - VENCEDOR SEMIFINAL 1 x VENCEDOR SEMIFINAL 2", "", "", "15px")."
             </div>
         ";
     }
