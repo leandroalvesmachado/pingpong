@@ -9,7 +9,7 @@ class Game
      * @param array $players Lista de jogadores
      * @return array Grupos de jogadores
      */
-    public function groups(array $players): array
+    public function grupos(array $players): array
     {
         $total = count($players);
         $groups = [];
@@ -91,9 +91,17 @@ class Game
         return $matchesByGroup;
     }
 
-    public function group($groups): string
+    public function gruposHtml($groups): string
     {
-        $html = "<table style='width: 100%; border-collapse: collapse;'>\n<tr>";
+        $html = "
+            <!--
+            <div style='font-size: 12px; text-transform: uppercase; font-weight: bold; text-align: center; margin-bottom: 2px;'>
+                Grupos
+            </div>
+            -->
+        ";
+
+        $html .= "<table style='width: 100%; border-collapse: collapse;'>\n<tr>";
 
         $count = 0;
         foreach ($groups as $group => $athletes) {
@@ -103,7 +111,7 @@ class Game
                 <table style='width: 100%; border-collapse: collapse; border: 1px solid #000000; margin-bottom: 5px; text-transform: uppercase;'>
                     <thead>
                         <tr>
-                            <th style='text-align: center; font-size: 12.5px; background: #f0f0f0; border: 1px solid #000000; padding: 8px;'>
+                            <th style='text-align: center; font-size: 12px; background: #f0f0f0; border: 1px solid #000000; padding: 6px;'>
                                 GRUPO ".chr(65 + $group)."
                             </th>
                         </tr>
@@ -114,7 +122,7 @@ class Game
             foreach ($athletes as $index => $opponent) {
                 $html .= "
                         <tr>
-                            <td style='border: 1px solid #000000; padding: 6px; font-size: 11px; text-align: center;'>
+                            <td style='border: 1px solid #000000; padding: 2px; font-size: 11px; text-align: center;'>
                                 ".htmlspecialchars($opponent)."
                             </td>
                         </tr>
@@ -139,66 +147,6 @@ class Game
         $html .= "</tr>\n</table>";
 
         return $html;
-    }
-
-    public function match($game, $player1, $player2, $padding = "5px"): string
-    {
-        return "
-            <table style='width:100%; border-collapse: collapse; border: 1px solid #000000; margin-bottom: 10px; border-radius: 2px; text-transform: uppercase;'>
-                <thead>
-                    <tr style='border: 1px solid #000000;'>
-                        <th colspan='7' style='font-size: 12.5px; background: #f0f0f0;'>{$game}</th>
-                    </tr>
-                    <tr style='text-align: center; font-size: 12.5px;'>
-                        <th width='25%' style='padding: 5px; border: 1px solid #000000;'>ATLETAS</th>
-                        <th style='border: 1px solid #000000;'>1º SET</th>
-                        <th style='border: 1px solid #000000;'>2º SET</th>
-                        <th style='border: 1px solid #000000;'>3º SET</th>
-                        <th style='border: 1px solid #000000;'>4º SET</th>
-                        <th style='border: 1px solid #000000;'>5º SET</th>
-                        <th width='20%' style='border: 1px solid #000000;'>FINAL</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td style='padding: {$padding}; text-align: left; font-size: 12.5px; border: 1px solid #000000;'>{$player1}</td>
-                        <td style='border: 1px solid #000000;'></td>
-                        <td style='border: 1px solid #000000;'></td>
-                        <td style='border: 1px solid #000000;'></td>
-                        <td style='border: 1px solid #000000;'></td>
-                        <td style='border: 1px solid #000000;'></td>
-                        <td style='border: 1px solid #000000;'></td>
-                    </tr>
-                    <tr>
-                        <td style='padding: {$padding}; text-align: left; font-size: 12.5px; border: 1px solid #000000;'>{$player2}</td>
-                        <td style='border: 1px solid #000000;'></td>
-                        <td style='border: 1px solid #000000;'></td>
-                        <td style='border: 1px solid #000000;'></td>
-                        <td style='border: 1px solid #000000;'></td>
-                        <td style='border: 1px solid #000000'></td>
-                        <td style='border: 1px solid #000000'></td>
-                    </tr>
-                </tbody>
-            </table>
-        ";
-    }
-
-    public function combat($game, $player1, $player2, $padding = "5px"): string
-    {
-        return "
-            <table style='width:100%; border-collapse: collapse; border: 0px solid #000000; border-radius: 2px;'>
-                <tbody>
-                    <tr>
-                        <td width='45%' style='padding: {$padding}; text-align: right; font-size: 12.5px; border: 0px solid #000000; text-transform: uppercase;'>{$game}</td>
-                        <td width='40%' style='padding: {$padding}; text-align: right; font-size: 12.5px; border: 0px solid #000000; text-transform: uppercase;'>{$player1}</td>
-                        <td width='5%' style='border:1px solid #000000;'></td>
-                        <td width='5%' style='text-align: center;'>x</td>
-                        <td width='5%' style='border:1px solid #000000;'></td>
-                        <td width='40%' style='padding: {$padding}; text-align: left; font-size: 12.5px; border: 0px solid #000000; text-transform: uppercase;'>{$player2}</td>
-                    </tr>
-                </tbody>
-            </table>
-        ";
     }
 
     public function prize(int $totalCompetidores): array
@@ -324,45 +272,214 @@ class Game
         return $ordemFinal;
     }
 
-    // public function order(array $matchesByGroup): array
-    // {
-    //     $ordenado = [];
-    //     $rodada = 0;
+    public function combates($partidas, $titulo, $total): string
+    {
+        $jogo = 1;
+        $html = "";
 
-    //     // Descobrir quantas rodadas no máximo há entre todos os grupos
-    //     $maxRodadas = max(array_map('count', $matchesByGroup));
+        foreach ($partidas as $partida) {
+            $html .= "<div style='page-break-inside: avoid; margin-bottom: 2px;'>";
+            $html .= $this->combateHtml("Jogo {$jogo} - {$titulo} - GRUPO {$partida['grupo']}", $partida['jogador1'], $partida['jogador2']);
+            $html .= "</div>";
 
-    //     for ($rodada = 0; $rodada < $maxRodadas; $rodada++) {
-    //         foreach ($matchesByGroup as $grupo => $jogos) {
-    //             if (isset($jogos[$rodada])) {
-    //                 $ordenado[] = $jogos[$rodada];
-    //             }
-    //         }
-    //     }
+            $jogo++;
+        }
 
-    //     // Renumerar os jogos em ordem
-    //     foreach ($ordenado as $i => &$jogo) {
-    //         $jogo['jogo'] = $i + 1;
-    //     }
+        $jogos = $this->jogosEliminatorias($total);
 
-    //     // Agrupar por grupo
-    //     $grupos = [];
-    //     foreach ($ordenado as $p) {
-    //         $grupos[$p['grupo']][] = $p;
-    //     }
+        foreach ($jogos as $partida) {
+            $html .= "<div style='page-break-inside: avoid; margin-bottom: 2px;'>";
+            $html .= $this->combateHtml("Jogo {$jogo} - {$titulo} - {$partida}", "", "");
+            $html .= "</div>";
 
-    //     // Intercalar os jogos (1º jogo de cada grupo, depois 2º, etc)
-    //     $resultado = [];
-    //     $max = max(array_map('count', $grupos)); // máximo de jogos por grupo
+            $jogo++;
+        }
 
-    //     for ($i = 0; $i < $max; $i++) {
-    //         foreach ($grupos as $grupo => $jogos) {
-    //             if (isset($jogos[$i])) {
-    //                 $resultado[] = $jogos[$i];
-    //             }
-    //         }
-    //     }
+        return $html;
+    }
 
-    //     return $resultado;
-    // }
+    public function combateHtml($game, $player1, $player2, $padding = "1px"): string
+    {
+        return "
+            <table style='width:100%; border-collapse: collapse; border: 0px solid #000000; border-radius: 2px;'>
+                <tbody>
+                    <tr>
+                        <td width='50%' style='padding: {$padding}; text-align: left; font-size: 11px; border: 0px solid #000000; text-transform: uppercase;'>{$game}</td>
+                        <td width='20%' style='padding: {$padding}; text-align: right; font-size: 10px; border: 0px solid #000000; text-transform: uppercase;'>{$player1}</td>
+                        <td width='30px' height='40px' style='border:1px solid #000000;'></td>
+                        <td width='2%' style='text-align: center;'>x</td>
+                        <td width='30px' height='40px' style='border:1px solid #000000;'></td>
+                        <td style='padding: {$padding}; text-align: left; font-size: 10px; border: 0px solid #000000; text-transform: uppercase;'>{$player2}</td>
+                    </tr>
+                </tbody>
+            </table>
+        ";
+    }
+
+    public function sumulasGrupos($gamesOrderFinal, $title): string
+    {
+        $html = "";
+        $contador = 0;
+
+        foreach ($gamesOrderFinal as $index => $match) {
+            if ($contador == 7) {
+                $html .= "<div style='page-break-before: always;'></div>";
+                $contador = 0;
+            }
+
+            $html .= "
+                <div style='page-break-inside: avoid; margin-bottom: 25px;'>
+                    ".$this->partidaHtml("Jogo ".($index + 1)." - {$title} - GRUPO {$match['grupo']}", $match['jogador1'], $match['jogador2'])."
+                </div>
+            ";
+
+            $contador++;
+        }
+
+        return $html;
+    }
+
+    public function jogosEliminatorias(int $total)
+    {
+        $jogos = match (true) {
+            $total == 4 || $total == 5 => [
+            ],
+            $total == 7 || $total == 8 => [
+                "SEMIFINAL 1 - 1º GRUPO A x 2º GRUPO B",
+                "SEMIFINAL 2 - 1º GRUPO B x 2º GRUPO A",
+                "FINAL - VENCEDOR SEMIFINAL 1 x VENCEDOR SEMIFINAL 2"
+            ],
+            $total == 9 => [
+                "SEMIFINAL 1 - 1º GRUPO A x 2º GRUPO B",
+                "SEMIFINAL 2 - 1º GRUPO B x 2º GRUPO A",
+                "FINAL - VENCEDOR SEMIFINAL 1 x VENCEDOR SEMIFINAL 2"
+            ],
+            $total == 10 || $total == 11 => [
+                "QUARTA 1 - 2º GRUPO B x 2º GRUPO C",
+                "QUARTA 2 - 2º GRUPO A x 1º GRUPO C",
+                "SEMIFINAL 1 - 1º GRUPO A x VENCEDOR QUARTA 1",
+                "SEMIFINAL 2 - 1º GRUPO B x VENCEDOR QUARTA 2",
+                "FINAL - VENCEDOR SEMIFINAL 1 x VENCEDOR SEMIFINAL 2"
+            ],
+            $total == 12 => [
+                "QUARTA 1 - 1º GRUPO A x 2º GRUPO D",
+                "QUARTA 2 - 1º GRUPO B x 2º GRUPO C",
+                "QUARTA 3 - 1º GRUPO C x 2º GRUPO B",
+                "QUARTA 4 - 1º GRUPO D x 2º GRUPO A",
+                "SEMIFINAL 1 - VENCEDOR QUARTA 1 x VENCEDOR QUARTA 2",
+                "SEMIFINAL 2 - VENCEDOR QUARTA 3 x VENCEDOR QUARTA 4",
+                "FINAL - VENCEDOR SEMIFINAL 1 x VENCEDOR SEMIFINAL 2"
+            ],
+            $total == 13 || $total == 14 => [
+                "QUARTA 1 - 1º GRUPO A x 2º GRUPO E",
+                "QUARTA 2 - 1º GRUPO B x 2º GRUPO C",
+                "QUARTA 3 - 1º GRUPO C x 2º GRUPO A",
+                "QUARTA 4 - 1º GRUPO D x 2º GRUPO B",
+                "SEMIFINAL 1 - VENCEDOR QUARTA 1 x VENCEDOR QUARTA 2",
+                "SEMIFINAL 2 - VENCEDOR QUARTA 3 x VENCEDOR QUARTA 4",
+                "FINAL - VENCEDOR SEMIFINAL 1 x VENCEDOR SEMIFINAL 2"
+            ],
+            $total == 15 => [
+                "OITAVA 1 - 2º GRUPO B x 2º GRUPO E",
+                "OITAVA 2 - 2º GRUPO C x 2º GRUPO D",
+                "QUARTA 1 - 1º GRUPO A x VENCEDOR OITAVA 1",
+                "QUARTA 2 - 1º GRUPO B x VENCEDOR OITAVA 2",
+                "QUARTA 3 - 1º GRUPO C x 1º GRUPO D",
+                "QUARTA 4 - 1º GRUPO E x 2º GRUPO A",
+                "SEMIFINAL 1 - VENCEDOR QUARTA 1 x VENCEDOR QUARTA 3",
+                "SEMIFINAL 2 - VENCEDOR QUARTA 2 x VENCEDOR QUARTA 4",
+                "FINAL - VENCEDOR SEMIFINAL 1 x VENCEDOR SEMIFINAL 2"
+            ],
+            $total == 16 || $total == 17 => [
+                "OITAVA 1 - 2º GRUPO B x 2º GRUPO E",
+                "OITAVA 2 - 2º GRUPO C x 2º GRUPO D",
+                "QUARTA 1 - 1º GRUPO A x VENCEDOR OITAVA 1",
+                "QUARTA 2 - 1º GRUPO B x VENCEDOR OITAVA 2",
+                "QUARTA 3 - 1º GRUPO C x 1º GRUPO D",
+                "QUARTA 4 - 1º GRUPO E x 2º GRUPO A",
+                "SEMIFINAL 1 - VENCEDOR QUARTA 1 x VENCEDOR QUARTA 3",
+                "SEMIFINAL 2 - VENCEDOR QUARTA 2 x VENCEDOR QUARTA 4",
+                "FINAL - VENCEDOR SEMIFINAL 1 x VENCEDOR SEMIFINAL 2"
+            ],
+            $total == 18 => [
+                "OITAVA 1 - 1º GRUPO E x 2º GRUPO C",
+                "OITAVA 2 - 1º GRUPO F x 2º GRUPO D",
+                "OITAVA 3 - 2º GRUPO A x 2º GRUPO E",
+                "OITAVA 4 - 2º GRUPO B x 2º GRUPO F",
+                "QUARTA 1 - 1º GRUPO 1 x VENCEDOR OITAVA 1",
+                "QUARTA 2 - 1º GRUPO 2 x VENCEDOR OITAVA 2",
+                "QUARTA 3 - 1º GRUPO 3 x VENCEDOR OITAVA 3",
+                "QUARTA 4 - 1º GRUPO 4 x VENCEDOR OITAVA 4",
+                "SEMIFINAL 1 - VENCEDOR QUARTA 1 x VENCEDOR QUARTA 3",
+                "SEMIFINAL 2 - VENCEDOR QUARTA 2 x VENCEDOR QUARTA 4",
+                "FINAL - VENCEDOR SEMIFINAL 1 x VENCEDOR SEMIFINAL 2"
+            ],
+        };
+
+        return $jogos;
+    }
+
+    public function sumulasEliminatorias(int $total, string $title): string
+    {
+        $jogos = $this->jogosEliminatorias($total);
+        $contador = 0;
+        $html = "<div style='page-break-inside: avoid; margin-bottom: 25px;'>";
+
+        foreach ($jogos as $descricao) {
+            if ($contador == 8) {
+                $html .= "<div style='page-break-before: always;'></div>";
+                $contador = 0;
+            }
+
+            $html .= $this->partidaHtml("{$title} - {$descricao}", "", "", "15px");
+
+            $contador++;
+        }
+
+        $html .= "</div>";
+
+        return $html;
+    }
+
+    public function partidaHtml($game, $player1, $player2, $padding = "5px"): string
+    {
+        return "
+            <table style='width:100%; border-collapse: collapse; border: 1px solid #000000; margin-bottom: 10px; border-radius: 2px; text-transform: uppercase;'>
+                <thead>
+                    <tr style='border: 1px solid #000000;'>
+                        <th colspan='7' style='font-size: 12.5px; background: #f0f0f0;'>{$game}</th>
+                    </tr>
+                    <tr style='text-align: center; font-size: 12.5px;'>
+                        <th width='25%' style='padding: 5px; border: 1px solid #000000;'>ATLETAS</th>
+                        <th style='border: 1px solid #000000;'>1º SET</th>
+                        <th style='border: 1px solid #000000;'>2º SET</th>
+                        <th style='border: 1px solid #000000;'>3º SET</th>
+                        <th style='border: 1px solid #000000;'>4º SET</th>
+                        <th style='border: 1px solid #000000;'>5º SET</th>
+                        <th width='20%' style='border: 1px solid #000000;'>FINAL</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style='padding: {$padding}; text-align: left; font-size: 12.5px; border: 1px solid #000000;'>{$player1}</td>
+                        <td style='border: 1px solid #000000;'></td>
+                        <td style='border: 1px solid #000000;'></td>
+                        <td style='border: 1px solid #000000;'></td>
+                        <td style='border: 1px solid #000000;'></td>
+                        <td style='border: 1px solid #000000;'></td>
+                        <td style='border: 1px solid #000000;'></td>
+                    </tr>
+                    <tr>
+                        <td style='padding: {$padding}; text-align: left; font-size: 12.5px; border: 1px solid #000000;'>{$player2}</td>
+                        <td style='border: 1px solid #000000;'></td>
+                        <td style='border: 1px solid #000000;'></td>
+                        <td style='border: 1px solid #000000;'></td>
+                        <td style='border: 1px solid #000000;'></td>
+                        <td style='border: 1px solid #000000'></td>
+                        <td style='border: 1px solid #000000'></td>
+                    </tr>
+                </tbody>
+            </table>
+        ";
+    }
 }
